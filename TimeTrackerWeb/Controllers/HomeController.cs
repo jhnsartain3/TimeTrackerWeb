@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using TimeTrackerWeb.Models;
 
 namespace TimeTrackerWeb.Controllers
 {
@@ -21,6 +15,11 @@ namespace TimeTrackerWeb.Controllers
         public IActionResult Index()
         {
             return RedirectToAction("Index", "Project");
+        }
+
+        public IActionResult About()
+        {
+            return View();
         }
     }
 }
