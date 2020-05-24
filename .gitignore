@@ -338,3 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/TimeTrackerWeb/.config/dotnet-tools.json
