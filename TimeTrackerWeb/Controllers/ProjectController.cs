@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeTrackerWeb.Models;
 
@@ -11,13 +12,13 @@ namespace TimeTrackerWeb.Controllers
         // GET: Project
         public async Task<IActionResult> Index()
         {
-            return View(await GetAll(TimeTrackerApiSubPath));
+            return View(await GetAll(TimeTrackerApiSubPath, GetAuthenticationTokenFromSession()));
         }
 
         // GET: Project/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            return View(await GetById(TimeTrackerApiSubPath, id));
+            return View(await GetById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession()));
         }
 
         // GET: Project/Create
@@ -32,7 +33,7 @@ namespace TimeTrackerWeb.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            await Post(TimeTrackerApiSubPath, model);
+            await Post(TimeTrackerApiSubPath, model, GetAuthenticationTokenFromSession());
 
             return RedirectToAction(nameof(Index));
         }
@@ -40,7 +41,7 @@ namespace TimeTrackerWeb.Controllers
         // GET: Project/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            return View(await GetById(TimeTrackerApiSubPath, id));
+            return View(await GetById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession()));
         }
 
         [HttpPost]
@@ -51,7 +52,7 @@ namespace TimeTrackerWeb.Controllers
 
             if (!ModelState.IsValid) return View(model);
 
-            await Update(TimeTrackerApiSubPath, id, model);
+            await Update(TimeTrackerApiSubPath, id, model, GetAuthenticationTokenFromSession());
 
             return RedirectToAction(nameof(Index));
         }
@@ -59,7 +60,7 @@ namespace TimeTrackerWeb.Controllers
         // GET: Project/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            return View(await GetById(TimeTrackerApiSubPath, id));
+            return View(await GetById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession()));
         }
 
         // POST: Project/Delete/5
@@ -68,9 +69,14 @@ namespace TimeTrackerWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            await DeleteById(TimeTrackerApiSubPath, id);
+            await DeleteById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession());
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private string GetAuthenticationTokenFromSession()
+        {
+            return HttpContext.Session.GetString("authenticationToken");
         }
     }
 }

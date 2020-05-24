@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +23,9 @@ namespace TimeTrackerWeb.Controllers
             var innerException = exception.InnerException?.ToString() != null
                 ? exception.InnerException.ToString()
                 : "None";
+
+            if (innerException.Contains("Unauthorized") || userFriendlyMessage.Contains("Unauthorized"))
+                return RedirectToAction("Login", "Authentication");
 
             var requestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
 

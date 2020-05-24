@@ -11,11 +11,12 @@ namespace TimeTrackerWeb.External
 {
     public interface IHttpClientWrapper<TEntity>
     {
-        Task<List<TEntity>> GetAllAsync(string urlExtension);
-        Task<TEntity> GetById(string urlExtension, string id);
-        Task<bool> PutAsync(string urlExtension, string id, TEntity model);
-        Task<bool> PostAsync(string urlExtension, TEntity model);
-        Task<bool> DeleteAsync(string urlExtension, string id);
+        Task<List<TEntity>> GetAllAsync(string urlExtension, string token = null);
+        Task<TEntity> GetByIdAsync(string urlExtension, string id, string token = null);
+        Task<bool> PutAsync(string urlExtension, string id, TEntity model, string token = null);
+        Task<bool> PostAsync(string urlExtension, TEntity model, string token = null);
+        Task<string> PostWithResultAsync(string urlExtension, TEntity model, string token = null);
+        Task<bool> DeleteAsync(string urlExtension, string id, string token = null);
     }
 
     public class HttpClientWrapper<TEntity> : IHttpClientWrapper<TEntity>
@@ -27,30 +28,45 @@ namespace TimeTrackerWeb.External
             CheckExceptions(async () => SetupHttpConnection(configuration));
         }
 
-        public async Task<List<TEntity>> GetAllAsync(string urlExtension)
-        {
-            return await CheckExceptions(async () => (await _httwrap.GetAsync(urlExtension)).ReadAs<List<TEntity>>());
-        }
-
-        public async Task<TEntity> GetById(string urlExtension, string id)
+        public async Task<List<TEntity>> GetAllAsync(string urlExtension, string token = null)
         {
             return await CheckExceptions(async () =>
-                (await _httwrap.GetAsync(urlExtension + "/" + id)).ReadAs<TEntity>());
+                (await _httwrap.GetAsync(urlExtension, null, token != null ? GetCustomHeaders(token) : null))
+                .ReadAs<List<TEntity>>());
         }
 
-        public async Task<bool> PutAsync(string urlExtension, string id, TEntity model)
+        public async Task<TEntity> GetByIdAsync(string urlExtension, string id, string token = null)
         {
-            return await CheckExceptions(async () => (await _httwrap.PutAsync(urlExtension + "/" + id, model)).Success);
+            return await CheckExceptions(async () =>
+                (await _httwrap.GetAsync(urlExtension + "/" + id, null, token != null ? GetCustomHeaders(token) : null))
+                .ReadAs<TEntity>());
         }
 
-        public async Task<bool> PostAsync(string urlExtension, TEntity model)
+        public async Task<bool> PutAsync(string urlExtension, string id, TEntity model, string token = null)
         {
-            return await CheckExceptions(async () => (await _httwrap.PostAsync(urlExtension, model)).Success);
+            return await CheckExceptions(async () =>
+                (await _httwrap.PutAsync(urlExtension + "/" + id, model, null,
+                    token != null ? GetCustomHeaders(token) : null)).Success);
         }
 
-        public async Task<bool> DeleteAsync(string urlExtension, string id)
+        public async Task<bool> PostAsync(string urlExtension, TEntity model, string token = null)
         {
-            return await CheckExceptions(async () => (await _httwrap.DeleteAsync(urlExtension + "/" + id)).Success);
+            return await CheckExceptions(async () =>
+                (await _httwrap.PostAsync(urlExtension, model, null, token != null ? GetCustomHeaders(token) : null))
+                .Success);
+        }
+
+        public async Task<string> PostWithResultAsync(string urlExtension, TEntity model, string token = null)
+        {
+            return (await _httwrap.PostAsync(urlExtension, model, null, token != null ? GetCustomHeaders(token) : null))
+                .ReadAs<string>();
+        }
+
+        public async Task<bool> DeleteAsync(string urlExtension, string id, string token = null)
+        {
+            return await CheckExceptions(async () =>
+                (await _httwrap.DeleteAsync(urlExtension + "/" + id, null,
+                    token != null ? GetCustomHeaders(token) : null)).Success);
         }
 
         private void SetupHttpConnection(IConfiguration configuration)
@@ -77,8 +93,13 @@ namespace TimeTrackerWeb.External
             }
             catch (HttwrapException httpwrapException)
             {
-                throw new HttpRequestException("The Datasource Link Has Changed", httpwrapException);
+                throw new HttpRequestException("The Data Source Link Has Changed", httpwrapException);
             }
+        }
+
+        private Dictionary<string, string> GetCustomHeaders(string token)
+        {
+            return new Dictionary<string, string> {{"authorization", "Bearer " + token}};
         }
     }
 }

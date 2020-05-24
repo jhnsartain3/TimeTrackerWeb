@@ -8,13 +8,13 @@ namespace TimeTrackerWeb.Controllers
 {
     public class BaseDataAccessController<TEntity> : BaseController<TEntity>
     {
-        public async Task<List<TEntity>> GetAll(string path)
+        public async Task<List<TEntity>> GetAll(string path, string token = null)
         {
             List<TEntity> result;
 
             try
             {
-                result = await HttpClientWrapper.GetAllAsync(path);
+                result = await HttpClientWrapper.GetAllAsync(path, token);
             }
             catch (Exception exception)
             {
@@ -24,13 +24,13 @@ namespace TimeTrackerWeb.Controllers
             return result;
         }
 
-        public async Task<TEntity> GetById(string path, string id)
+        public async Task<TEntity> GetById(string path, string id, string token = null)
         {
             TEntity result;
 
             try
             {
-                result = await HttpClientWrapper.GetById(path, id);
+                result = await HttpClientWrapper.GetByIdAsync(path, id, token);
             }
             catch (HttwrapException httwrapException)
             {
@@ -43,11 +43,11 @@ namespace TimeTrackerWeb.Controllers
             return result;
         }
 
-        public async Task<bool> Post(string path, TEntity model)
+        public async Task Post(string path, TEntity model, string token = null)
         {
             try
             {
-                return await HttpClientWrapper.PostAsync(path, model);
+                await HttpClientWrapper.PostAsync(path, model, token);
             }
             catch (Exception exception)
             {
@@ -55,17 +55,29 @@ namespace TimeTrackerWeb.Controllers
             }
         }
 
-        public async Task<bool> Update(string path, string id, TEntity model)
+        public async Task<string> PostWithResultAsync(string path, TEntity model, string token = null)
         {
             try
             {
-                return await HttpClientWrapper.PutAsync(path, id, model);
+                return await HttpClientWrapper.PostWithResultAsync(path, model, token);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Failed to create item", exception);
+            }
+        }
+
+        public async Task<bool> Update(string path, string id, TEntity model, string token = null)
+        {
+            try
+            {
+                return await HttpClientWrapper.PutAsync(path, id, model, token);
             }
             catch (DbUpdateConcurrencyException dbUpdateConcurrencyException)
             {
                 try
                 {
-                    if (await HttpClientWrapper.GetById(path, id) != null)
+                    if (await HttpClientWrapper.GetByIdAsync(path, id, token) != null)
                         throw new Exception("Failed to update item ");
                 }
                 catch (Exception exception)
@@ -81,11 +93,11 @@ namespace TimeTrackerWeb.Controllers
             }
         }
 
-        public async Task DeleteById(string path, string id)
+        public async Task DeleteById(string path, string id, string token = null)
         {
             try
             {
-                await HttpClientWrapper.DeleteAsync(path, id);
+                await HttpClientWrapper.DeleteAsync(path, id, token);
             }
             catch (HttwrapException httwrapException)
             {
