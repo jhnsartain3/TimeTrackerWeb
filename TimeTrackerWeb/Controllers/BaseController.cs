@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TimeTrackerWeb.External;
 using Microsoft.Extensions.DependencyInjection;
+using TimeTrackerWeb.External;
 
 namespace TimeTrackerWeb.Controllers
 {

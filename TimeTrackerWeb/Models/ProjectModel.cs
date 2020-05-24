@@ -1,11 +1,11 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.Attributes;
 using TimeTrackerWeb.Models.Base;
 
 namespace TimeTrackerWeb.Models
 {
     public class ProjectModel : EntityBase
-    {        
+    {
         [Required]
         [BsonElement("name")]
         [MinLength(3)]

@@ -1,6 +1,6 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.Attributes;
 using TimeTrackerWeb.Models.Base;
 
 namespace TimeTrackerWeb.Models
@@ -30,7 +30,7 @@ namespace TimeTrackerWeb.Models
         public DateTime? EndDate { get; set; }
 
         [BsonElement("description")]
-        [MinLength(3)] 
+        [MinLength(3)]
         public string Description { get; set; }
     }
 }
