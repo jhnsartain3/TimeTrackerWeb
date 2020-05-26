@@ -10,7 +10,7 @@ namespace TimeTrackerWeb.Models.Base
         [BsonRepresentation(BsonType.ObjectId)]
         [Display(Name = "Record ID", Prompt = "5eb9eb10a0e5812c7caa399f",
             Description = "The unique identifying the record")]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [BsonRepresentation(BsonType.ObjectId)]
         [BsonElement("userid")]

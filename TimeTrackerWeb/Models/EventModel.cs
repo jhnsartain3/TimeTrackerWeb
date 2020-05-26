@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using TimeTrackerWeb.Models.Base;
 
@@ -7,6 +8,13 @@ namespace TimeTrackerWeb.Models
 {
     public class EventModel : EntityBase
     {
+        [Required]
+        [BsonElement("projectid")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        [Display(Name = "Project ID", Prompt = "5eb9eb10a0e5812c7caa399f",
+            Description = "The unique project ID attaching the record to the correct project")]
+        public string ProjectId { get; set; }
+
         [Required]
         [BsonElement("starttime")]
         [DataType(DataType.Time)]

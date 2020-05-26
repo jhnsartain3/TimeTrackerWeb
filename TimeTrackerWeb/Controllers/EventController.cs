@@ -9,10 +9,13 @@ namespace TimeTrackerWeb.Controllers
     {
         private const string TimeTrackerApiSubPath = "api/Event";
 
-        // GET: Event
-        public async Task<IActionResult> Index()
+        // GET: Event/5
+        public async Task<IActionResult> Index(string id)
         {
-            return View(await GetAll(TimeTrackerApiSubPath, GetAuthenticationTokenFromSession()));
+            ViewBag.itemId = id;
+
+            return View(await GetAllById(TimeTrackerApiSubPath + "/ByProjectId", id,
+                GetAuthenticationTokenFromSession()));
         }
 
         // GET: Event/Details/5
@@ -21,10 +24,13 @@ namespace TimeTrackerWeb.Controllers
             return View(await GetById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession()));
         }
 
-        // GET: Event/Create
-        public IActionResult Create()
+        // GET: Event/Create/5
+        public IActionResult Create(string id)
         {
-            return View();
+            return View(new EventModel
+            {
+                ProjectId = id
+            });
         }
 
         [HttpPost]
@@ -33,9 +39,12 @@ namespace TimeTrackerWeb.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
+            // Model's Id value seems to be magically set to the Model's Projectid
+            model.Id = null;
+
             await Post(TimeTrackerApiSubPath, model, GetAuthenticationTokenFromSession());
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new {id = model.ProjectId});
         }
 
         // GET: Event/Edit/5
@@ -54,7 +63,7 @@ namespace TimeTrackerWeb.Controllers
 
             await Update(TimeTrackerApiSubPath, id, model, GetAuthenticationTokenFromSession());
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new {id = model.ProjectId});
         }
 
         // GET: Event/Delete/5
@@ -67,11 +76,11 @@ namespace TimeTrackerWeb.Controllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(string id, string projectId)
         {
             await DeleteById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession());
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new {id = projectId});
         }
 
         private string GetAuthenticationTokenFromSession()

@@ -41,7 +41,8 @@
 
 <form asp-action="Delete">
     <input type="hidden" asp-for="Id"/>
+    <input type="hidden" asp-for="ProjectId"/>
     <input type="submit" value="Delete" class="btn btn-danger"/>
     <br/><br/>
-    @Html.Partial("../SharedElements/BackToListButton")
+    @Html.Partial("./BackToEventListButton", Model.ProjectId)
 </form>

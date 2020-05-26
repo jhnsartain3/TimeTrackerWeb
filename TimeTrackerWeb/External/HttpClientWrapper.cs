@@ -12,6 +12,7 @@ namespace TimeTrackerWeb.External
     public interface IHttpClientWrapper<TEntity>
     {
         Task<List<TEntity>> GetAllAsync(string urlExtension, string token = null);
+        Task<List<TEntity>> GetAllByIdAsync(string urlExtension, string itemId, string token = null);
         Task<TEntity> GetByIdAsync(string urlExtension, string id, string token = null);
         Task<bool> PutAsync(string urlExtension, string id, TEntity model, string token = null);
         Task<bool> PostAsync(string urlExtension, TEntity model, string token = null);
@@ -32,6 +33,14 @@ namespace TimeTrackerWeb.External
         {
             return await CheckExceptions(async () =>
                 (await _httwrap.GetAsync(urlExtension, null, token != null ? GetCustomHeaders(token) : null))
+                .ReadAs<List<TEntity>>());
+        }
+
+        public async Task<List<TEntity>> GetAllByIdAsync(string urlExtension, string itemId, string token = null)
+        {
+            return await CheckExceptions(async () =>
+                (await _httwrap.GetAsync(urlExtension + "/" + itemId, null,
+                    token != null ? GetCustomHeaders(token) : null))
                 .ReadAs<List<TEntity>>());
         }
 
