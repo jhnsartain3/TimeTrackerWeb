@@ -10,10 +10,19 @@ namespace TimeTrackerWeb.Controllers
         private const string TimeTrackerLoginApiSubPath = "api/Authentication/Login";
         private const string TimeTrackerUserInformationApiSubPath = "api/UserInformation";
 
-        // GET: Authentication/Index
+        // GET: Authentication/Login
         public IActionResult Login()
         {
             return View();
+        }
+
+        // GET: Authentication/Logout
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("authenticationToken");
+            HttpContext.Session.Remove("username");
+
+            return RedirectToAction("Login", "Authentication");
         }
 
         [HttpPost]

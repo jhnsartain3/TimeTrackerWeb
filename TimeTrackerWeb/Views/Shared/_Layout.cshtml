@@ -34,7 +34,13 @@
                         if (ableToRetrieveUsername)
                         {
                             var result = System.Text.Encoding.UTF8.GetString(sessionName);
-                            <p class="navbar-nav flex-grow-1">| @result</p>
+                            <div class="navbar-nav flex-grow-1">
+                                <p class="navbar-nav flex-grow-1">| @result</p>
+                                <p class="navbar-nav flex-grow-1" style="color: white">||</p>
+                                <div>
+                                    <a class="navbar-nav flex-grow-1" asp-area="" asp-controller="Authentication" asp-action="Logout">Logout</a>
+                                </div>
+                            </div>
                         }
                     }
                 </div>
