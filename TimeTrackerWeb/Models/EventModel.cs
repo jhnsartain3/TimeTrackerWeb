@@ -15,26 +15,40 @@ namespace TimeTrackerWeb.Models
             Description = "The unique project ID attaching the record to the correct project")]
         public string ProjectId { get; set; }
 
+        private DateTime _startTime;
+
         [Required]
         [BsonElement("starttime")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm tt}")]
-        public DateTime StartTime { get; set; }
+        public DateTime StartTime
+        {
+            get { return _startTime.ToLocalTime(); }
+            set { _startTime = value.ToUniversalTime(); }
+        }
 
         [Required]
         [BsonElement("startdate")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [BsonDateTimeOptions(DateOnly = true)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
+
+        private DateTime? _endTime;
 
         [BsonElement("endtime")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm tt}")]
-        public DateTime? EndTime { get; set; }
+        public DateTime? EndTime
+        {
+            get { return _endTime?.ToLocalTime(); }
+            set { _endTime = value?.ToUniversalTime(); }
+        }
 
         [BsonElement("enddate")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [BsonDateTimeOptions(DateOnly = true)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? EndDate { get; set; }
 
         [BsonElement("description")]
