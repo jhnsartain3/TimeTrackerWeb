@@ -42,5 +42,5 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
     <br/><br/>
-    @Html.Partial("../SharedElements/BackToListButton")
+    @Html.Partial("./BackToEventListButton", Model.ProjectId)
 </div>
