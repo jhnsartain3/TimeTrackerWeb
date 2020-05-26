@@ -7,7 +7,8 @@ namespace TimeTrackerWeb.Controllers
 {
     public class AuthenticationController : BaseDataAccessController<UserModel>
     {
-        private const string TimeTrackerApiSubPath = "api/Authentication/Login";
+        private const string TimeTrackerLoginApiSubPath = "api/Authentication/Login";
+        private const string TimeTrackerUserInformationApiSubPath = "api/UserInformation";
 
         // GET: Authentication/Index
         public IActionResult Login()
@@ -21,11 +22,21 @@ namespace TimeTrackerWeb.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            var result = await PostWithResultAsync(TimeTrackerApiSubPath, model);
+            var token = await PostWithResultAsync(TimeTrackerLoginApiSubPath, model);
 
-            HttpContext.Session.SetString("authenticationToken", result);
+            HttpContext.Session.SetString("authenticationToken", token);
+
+            var userInformation = await GetById(TimeTrackerUserInformationApiSubPath, model.Username,
+                GetAuthenticationTokenFromSession());
+
+            HttpContext.Session.SetString("username", userInformation.Username);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        private string GetAuthenticationTokenFromSession()
+        {
+            return HttpContext.Session.GetString("authenticationToken");
         }
     }
 }

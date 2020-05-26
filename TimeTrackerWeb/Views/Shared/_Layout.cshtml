@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -24,6 +24,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                     </ul>
+                </div>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    @{
+                        var ableToRetrieveUsername = Context.Session.TryGetValue("username", out var sessionName);
+
+                        if (ableToRetrieveUsername)
+                        {
+                            var result = System.Text.Encoding.UTF8.GetString(sessionName);
+                            <p class="navbar-nav flex-grow-1">| @result</p>
+                        }
+                    }
                 </div>
             </div>
         </div>
