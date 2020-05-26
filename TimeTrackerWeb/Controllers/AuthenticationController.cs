@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeTrackerWeb.Models;
@@ -31,14 +32,28 @@ namespace TimeTrackerWeb.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            var token = await PostWithResultAsync(TimeTrackerLoginApiSubPath, model);
+            try
+            {
+                var token = await PostWithResultAsync(TimeTrackerLoginApiSubPath, model);
 
-            HttpContext.Session.SetString("authenticationToken", token);
+                HttpContext.Session.SetString("authenticationToken", token);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Unable to login", exception);
+            }
 
-            var userInformation = await GetById(TimeTrackerUserInformationApiSubPath, model.Username,
+            try
+            {
+                var userInformation = await GetById(TimeTrackerUserInformationApiSubPath, model.Username,
                 GetAuthenticationTokenFromSession());
 
-            HttpContext.Session.SetString("username", userInformation.Username);
+                HttpContext.Session.SetString("username", userInformation.Username);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Unable to retrieve use details", exception);
+            }
 
             return RedirectToAction("Index", "Home");
         }
