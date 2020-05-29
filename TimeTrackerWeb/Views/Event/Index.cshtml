@@ -28,42 +28,54 @@
 
     <hr style="border: 2px solid green; margin: 0em;"/>
 
-    @foreach (var item in Model)
-    {
-        <a asp-action="Details" asp-route-id="@item.Id">
-            <div id="row" class="row" style="min-height: 35px">
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
-                    <body>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                    @Html.DisplayFor(modelItem => item.StartTime)
-                    </body>
-                </div>
+    @{
+        var lastDateTime = "";
 
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
-                    @{
-                        if (item.EndTime == null || item.EndDate == null)
-                        {
-                            <div style="width: 75%; height: 100%">
-                                <object>
-                                    <a asp-action="Stop" asp-route-id="@item.Id" class="btn btn-danger">Stop</a>
-                                </object>
-                            </div>
-                        }
-                        else
-                        {
-                            <body>
-                            @Html.DisplayFor(modelItem => item.EndDate)
-                            @Html.DisplayFor(modelItem => item.EndTime)
+        @foreach (var item in Model)
+        {
+            if (!(lastDateTime).ToString().Equals((item.StartDate.Year + item.StartDate.Month + item.StartDate.Day).ToString()))
+            {
+                lastDateTime = (item.StartDate.Year + item.StartDate.Month + item.StartDate.Day).ToString();
+                <div class="row" style="min-height: 35px">
+                    @item.StartDate.ToShortDateString()
+                </div>
+            }
 
-                            </body>
+            <a asp-action="Details" asp-route-id="@item.Id">
+                <div id="row" class="row" style="min-height: 35px">
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
+                        <body>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                        </body>
+                    </div>
+
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
+                        @{
+                            if (item.EndTime == null || item.EndDate == null)
+                            {
+                                <div style="width: 75%; height: 100%">
+                                    <object>
+                                        <a asp-action="Stop" asp-route-id="@item.Id" class="btn btn-danger">Stop</a>
+                                    </object>
+                                </div>
+                            }
+                            else
+                            {
+                                <body>
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                                @Html.DisplayFor(modelItem => item.EndTime)
+
+                                </body>
+                            }
                         }
-                    }
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4" style="text-align: left">
+                        <body >@Html.DisplayFor(modelItem => item.Description)</body>
+                    </div>
                 </div>
-                <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4" style="text-align: left">
-                    <body >@Html.DisplayFor(modelItem => item.Description)</body>
-                </div>
-            </div>
-            <hr style="border: 1px dotted green;  margin: 0em"/>
-        </a>
+                <hr style="border: 1px dotted green;  margin: 0em"/>
+            </a>
+        }
     }
 </div>
