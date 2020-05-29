@@ -6,13 +6,13 @@
 
 <div class="container">
     <div class="row ">
-        <div class="col-md-4 mx-auto">
+        <div class="col-md-2 mx-auto">
             <p ></p>
         </div>
-        <div class="col-md-4 mx-auto">
-            <h1 style="text-align: center">@ViewData["Title"]</h1>
+        <div class="col-md-6 mx-auto">
+            <h1 style="text-align: center">@(Model.Any() ? ViewData["Title"] : "Get Started")</h1>
         </div>
-        <div class="col-md-4 mx-auto">
+        <div class="col-md-2 mx-auto">
             <div class="float-right">
                 <a asp-action="Create" class="btn btn-success font-weight-bold" style="width: 150px; height: 50px; align-content: center;text-align: center">
                     <h3>New</h3>
@@ -20,24 +20,28 @@
             </div>
         </div>
     </div>
-</div>
 
-<br/>
 
-<div class="row grid-container">
-    @foreach (var item in Model)
+    <br/>
+
+    @if (Model.Any())
     {
-        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" style="padding: 10px">
-            <div class="grid-item">
-                <a asp-action="Index" asp-controller="Event" asp-route-id="@item.Id" class="btn btn-info">
-                    <h1>@item.Name</h1>
-                </a>
+        <div class="row grid-container">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" style="padding: 10px">
+                    <div class="grid-item">
+                        <a asp-action="Index" asp-controller="Event" asp-route-id="@item.Id" class="btn btn-info">
+                            <h1>@item.Name</h1>
+                        </a>
 
-                <h1>@item.Description</h1>
+                        <h1>@item.Description</h1>
 
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">✏️</a>
-            </div>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">✏️</a>
+                    </div>
+                </div>
+                <br/>
+            }
         </div>
-        <br/>
     }
 </div>
