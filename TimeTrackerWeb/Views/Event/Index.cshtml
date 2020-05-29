@@ -7,14 +7,14 @@
 <h1 style="text-align:center">@ViewData["Title"]</h1>
 
 <body>
-    <a asp-action="Create" asp-route-id="@ViewBag.itemId" class="btn btn-success" style="margin-left: 30px">New Event</a>
-    <a asp-action="Create" asp-route-id="@ViewBag.itemId" style="float:right; margin-right: 30px" class="btn btn-primary">Start Clock</a>
+<a asp-action="Create" asp-route-id="@ViewBag.itemId" class="btn btn-success" style="margin-left: 30px">New Event</a>
+<a asp-action="Start" asp-route-id="@ViewBag.itemId" style="float:right; margin-right: 30px" class="btn btn-primary">Start Clock</a>
 </body>
 
 <div class="container" style="padding: 10px">
-    <hr style="border: 1px solid green;"/>
+    <hr style="border: 2px solid green; margin: 0em;"/>
 
-    <div class="row">
+    <div class="row" style="background-color: lightgray">
         <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
             <h3 style="text-align: center">Start</h3>
         </div>
@@ -26,39 +26,44 @@
         </div>
     </div>
 
-    <hr style="border: 1px solid green;"/>
+    <hr style="border: 2px solid green; margin: 0em;"/>
 
     @foreach (var item in Model)
     {
         <a asp-action="Details" asp-route-id="@item.Id">
-            <div class="row" style="text-align: center">
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 ">
+            <div id="row" class="row" style="min-height: 35px">
+                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
                     <body>
-                    @Html.DisplayFor(modelItem => item.StartTime)
                     @Html.DisplayFor(modelItem => item.StartDate)
+                    @Html.DisplayFor(modelItem => item.StartTime)
                     </body>
                 </div>
 
-                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
                     @{
                         if (item.EndTime == null || item.EndDate == null)
                         {
-                            <input type="button" asp-action="Edit" asp-route-id="@item.Id" style="width: 50%" class="btn btn-danger" value="Stop"/>
+                            <div style="width: 75%; height: 100%">
+                                <object>
+                                    <a asp-action="Stop" asp-route-id="@item.Id" class="btn btn-danger">Stop</a>
+                                </object>
+                            </div>
                         }
                         else
                         {
                             <body>
-                            @Html.DisplayFor(modelItem => item.EndTime)
                             @Html.DisplayFor(modelItem => item.EndDate)
+                            @Html.DisplayFor(modelItem => item.EndTime)
+
                             </body>
                         }
                     }
                 </div>
                 <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-4" style="text-align: left">
-                    <body>@Html.DisplayFor(modelItem => item.Description)</body>
+                    <body >@Html.DisplayFor(modelItem => item.Description)</body>
                 </div>
             </div>
-            <hr style="border: 1px dotted green;"/>
+            <hr style="border: 1px dotted green;  margin: 0em"/>
         </a>
     }
 </div>

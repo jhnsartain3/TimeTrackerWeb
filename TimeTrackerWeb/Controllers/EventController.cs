@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TimeTrackerWeb.Models;
@@ -81,6 +82,37 @@ namespace TimeTrackerWeb.Controllers
             await DeleteById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession());
 
             return RedirectToAction(nameof(Index), new {id = projectId});
+        }
+
+        public async Task<IActionResult> Stop(string id)
+        {
+            var itemModel = await GetById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession());
+
+            if (!id.Equals(itemModel.Id)) return NotFound();
+
+            var dateTime = DateTime.Now;
+            itemModel.EndDate = dateTime.Date;
+            itemModel.EndTime = dateTime.Date.AddHours(dateTime.Hour).AddMinutes(dateTime.Minute);
+
+            await Update(TimeTrackerApiSubPath, id, itemModel, GetAuthenticationTokenFromSession());
+
+            return RedirectToAction(nameof(Index), new {id = itemModel.ProjectId});
+        }
+
+        public async Task<IActionResult> Start(string id)
+        {
+            var dateTime = DateTime.Now;
+
+            var itemModel = new EventModel
+            {
+                StartDate = dateTime.Date,
+                StartTime = dateTime.Date.AddHours(dateTime.Hour).AddMinutes(dateTime.Minute),
+                ProjectId = id
+            };
+
+            await Post(TimeTrackerApiSubPath, itemModel, GetAuthenticationTokenFromSession());
+
+            return RedirectToAction(nameof(Index), new {id = itemModel.ProjectId});
         }
 
         private string GetAuthenticationTokenFromSession()

@@ -31,7 +31,7 @@ namespace TimeTrackerWeb.Models
         [BsonElement("startdate")]
         [DataType(DataType.Date)]
         [BsonDateTimeOptions(DateOnly = true)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime StartDate { get; set; }
 
         private DateTime? _endTime;
@@ -48,7 +48,7 @@ namespace TimeTrackerWeb.Models
         [BsonElement("enddate")]
         [DataType(DataType.Date)]
         [BsonDateTimeOptions(DateOnly = true)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? EndDate { get; set; }
 
         [BsonElement("description")]
