@@ -28,9 +28,13 @@ namespace TimeTrackerWeb.Controllers
         // GET: Event/Create/5
         public IActionResult Create(string id)
         {
+            var dateTime = DateTime.Now;
+
             return View(new EventModel
             {
-                ProjectId = id
+                ProjectId = id,
+                StartDate = dateTime,
+                StartTime = dateTime.Date.AddHours(dateTime.Hour).AddMinutes(dateTime.Minute)
             });
         }
 
@@ -45,7 +49,7 @@ namespace TimeTrackerWeb.Controllers
 
             await Post(TimeTrackerApiSubPath, model, GetAuthenticationTokenFromSession());
 
-            return RedirectToAction(nameof(Index), new {id = model.ProjectId});
+            return RedirectToAction(nameof(Index), new { id = model.ProjectId });
         }
 
         // GET: Event/Edit/5
@@ -64,7 +68,7 @@ namespace TimeTrackerWeb.Controllers
 
             await Update(TimeTrackerApiSubPath, id, model, GetAuthenticationTokenFromSession());
 
-            return RedirectToAction(nameof(Index), new {id = model.ProjectId});
+            return RedirectToAction(nameof(Index), new { id = model.ProjectId });
         }
 
         // GET: Event/Delete/5
@@ -81,9 +85,10 @@ namespace TimeTrackerWeb.Controllers
         {
             await DeleteById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession());
 
-            return RedirectToAction(nameof(Index), new {id = projectId});
+            return RedirectToAction(nameof(Index), new { id = projectId });
         }
 
+        // GET: Event/Stop/5
         public async Task<IActionResult> Stop(string id)
         {
             var itemModel = await GetById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession());
@@ -96,9 +101,10 @@ namespace TimeTrackerWeb.Controllers
 
             await Update(TimeTrackerApiSubPath, id, itemModel, GetAuthenticationTokenFromSession());
 
-            return RedirectToAction(nameof(Index), new {id = itemModel.ProjectId});
+            return RedirectToAction(nameof(Index), new { id = itemModel.ProjectId });
         }
 
+        // GET: Event/Start/5
         public async Task<IActionResult> Start(string id)
         {
             var dateTime = DateTime.Now;
@@ -112,7 +118,7 @@ namespace TimeTrackerWeb.Controllers
 
             await Post(TimeTrackerApiSubPath, itemModel, GetAuthenticationTokenFromSession());
 
-            return RedirectToAction(nameof(Index), new {id = itemModel.ProjectId});
+            return RedirectToAction(nameof(Index), new { id = itemModel.ProjectId });
         }
 
         private string GetAuthenticationTokenFromSession()
