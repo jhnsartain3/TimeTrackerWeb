@@ -76,16 +76,32 @@ namespace TimeTrackerWeb.Controllers
 
             try
             {
-                var wasSuccessfullyCreated = await PostWithResultAsync(TimeTrackerSignUpApiSubPath, model);
+                var resultMessage = await PostWithResultAsync(TimeTrackerSignUpApiSubPath, model);
+                if (resultMessage.Equals("User " + model.Username + " created successfully"))
+                {
+                    HttpContext.Session.SetString("username", model.Username);
 
-                HttpContext.Session.SetString("username", model.Username);
+                    ViewBag.accountCreatedSuccessfully = true;
+
+                    return View();
+                }
+                {
+                    ModelState.AddModelError(string.Empty, "Could not create user. Try again later");
+                    return View();
+                }
+
             }
             catch (Exception exception)
             {
+                if (exception.InnerException != null && exception.InnerException.Message.Contains("The value is already in use: " + model.Username))
+                {
+                    ModelState.AddModelError(nameof(UserModel.Username), "Username already taken");
+
+                    return View();
+                }
+
                 throw new Exception("Something went wrong during registration", exception);
             }
-
-            return RedirectToAction("Login", "Authentication");
         }
 
         private string GetAuthenticationTokenFromSession()
