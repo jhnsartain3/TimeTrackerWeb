@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row ">
         <div class="col-md-2 mx-auto">
-            <p ></p>
+            <p></p>
         </div>
         <div class="col-md-6 mx-auto">
             <h1 style="text-align: center">@(Model.Any() ? ViewData["Title"] : "Get Started")</h1>
@@ -21,8 +21,7 @@
         </div>
     </div>
 
-
-    <br/>
+    <br />
 
     @if (Model.Any())
     {
@@ -37,10 +36,44 @@
 
                         <h1>@item.Description</h1>
 
+                        <div class="row">
+                            <div class="col" style="white-space: nowrap" hidden=@(!item.QuantitiesOfTimeModel.ShouldShowRelativeMillenniums)">
+                                Millenniums: @item.QuantitiesOfTimeModel.RelativeMillenniums
+                            </div>
+                            <div class="col" style="white-space: nowrap" hidden=@(!item.QuantitiesOfTimeModel.ShouldShowRelativeCenturies)">
+                                Centuries @item.QuantitiesOfTimeModel.RelativeCenturies
+                            </div>
+                            <div class="col" style="white-space: nowrap" hidden=@(!item.QuantitiesOfTimeModel.ShouldShowRelativeDecades)">
+                                Decades @item.QuantitiesOfTimeModel.RelativeDecades
+                            </div>
+                            <div class="col" style="white-space: nowrap" hidden=@(!item.QuantitiesOfTimeModel.ShouldShowRelativeYears)">
+                                Years: @item.QuantitiesOfTimeModel.RelativeYears
+                            </div>
+                            <div class="col" style="white-space: nowrap" hidden=@(!item.QuantitiesOfTimeModel.ShouldShowRelativeMonths)">
+                                Months: @item.QuantitiesOfTimeModel.RelativeMonths
+                            </div>
+                            <div class="col" style="white-space: nowrap" hidden=@(!item.QuantitiesOfTimeModel.ShouldShowRelativeWeeks)">
+                                Weeks: @item.QuantitiesOfTimeModel.RelativeWeeks
+                            </div>
+                            <div class="col" hidden=@(!item.QuantitiesOfTimeModel.ShouldShowRelativeDays)">
+                                Days: @item.QuantitiesOfTimeModel.RelativeDays
+                            </div>
+                            <div class="col" style="white-space: nowrap" hidden=@(!item.QuantitiesOfTimeModel.ShouldShowRelativeHours)">
+                                Hours: @item.QuantitiesOfTimeModel.RelativeHours
+                            </div>
+                            <div class="col" style="white-space: nowrap" hidden=@(!item.QuantitiesOfTimeModel.ShouldShowRelativeMinutes)">
+                                Minutes: @item.QuantitiesOfTimeModel.RelativeMinutes
+                            </div>
+                            <div class="col" style="white-space: nowrap" hidden=@(!item.QuantitiesOfTimeModel.ShouldShowRelativeSeconds)">
+                                Seconds @item.QuantitiesOfTimeModel.RelativeSeconds
+                            </div>
+                        </div>
+
+
                         <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">✏️</a>
                     </div>
                 </div>
-                <br/>
+                <br />
             }
         </div>
     }
