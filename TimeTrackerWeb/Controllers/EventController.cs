@@ -33,8 +33,7 @@ namespace TimeTrackerWeb.Controllers
             return View(new EventModel
             {
                 ProjectId = id,
-                StartDate = dateTime,
-                StartTime = dateTime.Date.AddHours(dateTime.Hour).AddMinutes(dateTime.Minute)
+                StartDateTime = dateTime.Date.AddHours(dateTime.Hour).AddMinutes(dateTime.Minute)
             });
         }
 
@@ -96,8 +95,7 @@ namespace TimeTrackerWeb.Controllers
             if (!id.Equals(itemModel.Id)) return NotFound();
 
             var dateTime = DateTime.Now;
-            itemModel.EndDate = dateTime.Date;
-            itemModel.EndTime = dateTime.Date.AddHours(dateTime.Hour).AddMinutes(dateTime.Minute);
+            itemModel.EndDateTime = dateTime.Date.AddHours(dateTime.Hour).AddMinutes(dateTime.Minute);
 
             await Update(TimeTrackerApiSubPath, id, itemModel, GetAuthenticationTokenFromSession());
 
@@ -111,8 +109,7 @@ namespace TimeTrackerWeb.Controllers
 
             var itemModel = new EventModel
             {
-                StartDate = dateTime.Date,
-                StartTime = dateTime.Date.AddHours(dateTime.Hour).AddMinutes(dateTime.Minute),
+                StartDateTime = dateTime.Date.AddHours(dateTime.Hour).AddMinutes(dateTime.Minute),
                 ProjectId = id
             };
 
