@@ -40,6 +40,22 @@ namespace TimeTrackerWeb.Controllers
             return result;
         }
 
+        public async Task<List<T>> GetAllById<T>(string path, string itemId, string token = null)
+        {
+            List<T> result;
+
+            try
+            {
+                result = await HttpClientWrapper.GetAllByIdAsync<T>(path, itemId, token);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Failed to find items with ID: " + itemId, exception);
+            }
+
+            return result;
+        }
+
         public async Task<TEntity> GetById(string path, string id, string token = null)
         {
             TEntity result;

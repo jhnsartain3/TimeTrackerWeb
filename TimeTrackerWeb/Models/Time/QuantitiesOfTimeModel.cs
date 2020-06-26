@@ -14,7 +14,7 @@
         public double TotalMillenniums { get; set; }
 
         public double RelativeSeconds { get; set; }
-        public bool ShouldShowRelativeSeconds { get => RelativeSeconds + RelativeMinutes + RelativeHours + RelativeDays + RelativeWeeks + RelativeMonths + RelativeYears + RelativeDecades + RelativeCenturies + RelativeMillenniums != 0; }
+        public bool ShouldShowRelativeSeconds { get => false; }
 
         public double RelativeMinutes { get; set; }
         public bool ShouldShowRelativeMinutes { get => RelativeMinutes + RelativeHours + RelativeDays + RelativeWeeks + RelativeMonths + RelativeYears + RelativeDecades + RelativeCenturies + RelativeMillenniums != 0; }
