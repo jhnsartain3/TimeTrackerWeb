@@ -75,6 +75,25 @@ namespace TimeTrackerWeb.Controllers
             return result;
         }
 
+        public async Task<T> GetById<T>(string path, string id, string token = null)
+        {
+            T result;
+
+            try
+            {
+                result = await HttpClientWrapper.GetByIdAsync<T>(path, id, token);
+            }
+            catch (HttwrapException httwrapException)
+            {
+                throw new HttwrapException("Failed to find item with ID: " + id, httwrapException);
+            }
+
+            if (result == null)
+                throw new Exception("Failed to find item with ID: " + id);
+
+            return result;
+        }
+
         public async Task Post(string path, TEntity model, string token = null)
         {
             try

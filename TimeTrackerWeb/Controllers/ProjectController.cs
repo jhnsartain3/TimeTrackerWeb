@@ -18,7 +18,7 @@ namespace TimeTrackerWeb.Controllers
         // GET: Project/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            return View(await GetById(TimeTrackerApiSubPath + "/GetByIdWithQuantitiesOfTimeAsync", id, GetAuthenticationTokenFromSession()));
+            return View(await GetById<ProjectModelWithQuantitiesOfTime>(TimeTrackerApiSubPath + "/GetByIdWithQuantitiesOfTimeAsync", id, GetAuthenticationTokenFromSession()));
         }
 
         // GET: Project/Create

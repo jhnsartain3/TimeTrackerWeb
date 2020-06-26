@@ -15,6 +15,7 @@ namespace TimeTrackerWeb.External
         Task<List<TEntity>> GetAllByIdAsync(string urlExtension, string itemId, string token = null);
         Task<List<T>> GetAllByIdAsync<T>(string urlExtension, string itemId, string token = null);
         Task<TEntity> GetByIdAsync(string urlExtension, string id, string token = null);
+        Task<T> GetByIdAsync<T>(string urlExtension, string id, string token = null);
         Task<bool> PutAsync(string urlExtension, string id, TEntity model, string token = null);
         Task<bool> PostAsync(string urlExtension, TEntity model, string token = null);
         Task<string> PostWithResultAsync(string urlExtension, TEntity model, string token = null);
@@ -58,6 +59,13 @@ namespace TimeTrackerWeb.External
             return await CheckExceptions(async () =>
                 (await _httwrap.GetAsync(urlExtension + "/" + id, null, token != null ? GetCustomHeaders(token) : null))
                 .ReadAs<TEntity>());
+        }
+
+        public async Task<T> GetByIdAsync<T>(string urlExtension, string id, string token = null)
+        {
+            return await CheckExceptions(async () =>
+                (await _httwrap.GetAsync(urlExtension + "/" + id, null, token != null ? GetCustomHeaders(token) : null))
+                .ReadAs<T>());
         }
 
         public async Task<bool> PutAsync(string urlExtension, string id, TEntity model, string token = null)
