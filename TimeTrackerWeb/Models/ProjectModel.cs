@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson.Serialization.Attributes;
 using TimeTrackerWeb.Models.Base;
+using TimeTrackerWeb.Models.Time;
 
 namespace TimeTrackerWeb.Models
 {
@@ -14,5 +15,7 @@ namespace TimeTrackerWeb.Models
         [BsonElement("description")]
         [MinLength(3)]
         public string Description { get; set; }
+
+        public QuantitiesOfTimeModel QuantitiesOfTimeModel {get;set;}
     }
 }

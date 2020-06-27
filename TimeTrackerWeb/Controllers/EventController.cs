@@ -15,7 +15,7 @@ namespace TimeTrackerWeb.Controllers
         {
             ViewBag.itemId = id;
 
-            return View(await GetAllById(TimeTrackerApiSubPath + "/ByProjectId", id,
+            return View(await GetAllById<EventModelWithQuantitiesOfTimeAndDateTimeInfoHeaders>(TimeTrackerApiSubPath + "/GetAllByIdWithQuantitiesOfTimeAndDateTimeInfoHeaders", id,
                 GetAuthenticationTokenFromSession()));
         }
 
