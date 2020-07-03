@@ -119,11 +119,11 @@ namespace TimeTrackerWeb.External
 
         private void SetupHttpConnection(IConfiguration configuration)
         {
-            var usersApiUrl = configuration["ConnectionStrings:TimeTrackerApi"];
+            var timeTrackerApi = configuration["ConnectionStrings:TimeTrackerApi"];
 
-            _loggerWrapper.LogInformation("Setting up http connection with usersApiUrl of " + usersApiUrl, this.GetType().Name, nameof(SetupHttpConnection) + "()", null);
+            _loggerWrapper.LogInformation("Setting up http connection with usersApiUrl of " + timeTrackerApi, this.GetType().Name, nameof(SetupHttpConnection) + "()", null);
 
-            IHttwrapConfiguration httwrapConfiguration = new HttwrapConfiguration(usersApiUrl);
+            IHttwrapConfiguration httwrapConfiguration = new HttwrapConfiguration(timeTrackerApi);
             _httwrap = new HttwrapClient(httwrapConfiguration);
         }
 
