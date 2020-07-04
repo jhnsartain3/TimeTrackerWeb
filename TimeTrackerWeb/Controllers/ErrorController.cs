@@ -1,13 +1,21 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using Sartain_Studios_Common.Logging;
+using System.Diagnostics;
 using TimeTrackerWeb.Models;
 
 namespace TimeTrackerWeb.Controllers
 {
     public class ErrorController : Controller
     {
+        private ILoggerWrapper _loggerWrapper;
+
+        public ErrorController(ILoggerWrapper loggerWrapper)
+        {
+            _loggerWrapper = loggerWrapper;
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -15,6 +23,9 @@ namespace TimeTrackerWeb.Controllers
             var httpRequestFeature = HttpContext.Features.Get<IHttpRequestFeature>();
 
             var exception = error.Error;
+
+            _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(Error) + "()", null);
+            _loggerWrapper.LogError(exception.InnerException.Message, this.GetType().Name, nameof(Error) + "()", null);
 
             var path = httpRequestFeature.RawTarget;
             var httpMethod = Request.Method;
