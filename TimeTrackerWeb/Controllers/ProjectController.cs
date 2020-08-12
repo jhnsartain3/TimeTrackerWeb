@@ -28,6 +28,14 @@ namespace TimeTrackerWeb.Controllers
             return View(await GetById<ProjectModelWithQuantitiesOfTime>(TimeTrackerApiSubPath + "/GetByIdWithQuantitiesOfTimeAsync", id, GetAuthenticationTokenFromSession()));
         }
 
+        // GET: Project/Details/5
+        public async Task<double> GetTotalProjectHoursSinceLastSunday(string id)
+        {
+            _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(GetTotalProjectHoursSinceLastSunday) + "()", null);
+
+            return await GetById<double>(TimeTrackerApiSubPath + "/GetTotalProjectHoursSinceLastSunday", id, GetAuthenticationTokenFromSession());
+        }
+
         // GET: Project/Create
         public IActionResult Create()
         {
