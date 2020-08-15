@@ -20,6 +20,17 @@ namespace TimeTrackerWeb.Controllers
 
             _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(Index) + "()", null);
 
+            return View(await GetAllById<EventModelWithQuantitiesOfTimeAndDateTimeInfoHeaders>(TimeTrackerApiSubPath + "/ByProjectIdSinceSundayWithQuantitiesOfTimeAndDateTimeInfoHeaders", id,
+                GetAuthenticationTokenFromSession())); 
+        }
+
+        // GET: Event/AllRecords/5
+        public async Task<IActionResult> AllRecords(string id)
+        {
+            ViewBag.itemId = id;
+
+            _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(AllRecords) + "()", null);
+
             return View(await GetAllById<EventModelWithQuantitiesOfTimeAndDateTimeInfoHeaders>(TimeTrackerApiSubPath + "/GetAllByIdWithQuantitiesOfTimeAndDateTimeInfoHeaders", id,
                 GetAuthenticationTokenFromSession()));
         }

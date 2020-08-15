@@ -1,0 +1,148 @@
+﻿@model IEnumerable<EventModelWithQuantitiesOfTimeAndDateTimeInfoHeaders>
+
+@{
+    ViewData["Title"] = "Events";
+}
+
+<h1 style="text-align:center">@ViewData["Title"]</h1>
+
+<div class="container" style="padding: 10px">
+    @{
+        @foreach (var item in Model)
+        {
+            if (item.IsDateTimeInfoHeaderRecord)
+            {
+                <div class="row" style="min-height: 35px">
+                    <div class="row">
+                        <div class="col" style="white-space: nowrap">
+                            @item.HeaderDate.ToShortDateString()
+                        </div>
+                        <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeMillenniums)">
+                            Millenniums: @item.QuantitiesOfTimeModel.RelativeMillenniums
+                        </div>
+                        <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeCenturies)">
+                            Centuries @item.QuantitiesOfTimeModel.RelativeCenturies
+                        </div>
+                        <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeDecades)">
+                            Decades @item.QuantitiesOfTimeModel.RelativeDecades
+                        </div>
+                        <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeYears)">
+                            Years: @item.QuantitiesOfTimeModel.RelativeYears
+                        </div>
+                        <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeMonths)">
+                            Months: @item.QuantitiesOfTimeModel.RelativeMonths
+                        </div>
+                        <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeWeeks)">
+                            Weeks: @item.QuantitiesOfTimeModel.RelativeWeeks
+                        </div>
+                        <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeDays)">
+                            Days: @item.QuantitiesOfTimeModel.RelativeDays
+                        </div>
+                        <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeHours)">
+                            Hours: @item.QuantitiesOfTimeModel.RelativeHours
+                        </div>
+                        <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeMinutes)">
+                            Minutes: @item.QuantitiesOfTimeModel.RelativeMinutes
+                        </div>
+                        <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeSeconds)">
+                            Seconds @item.QuantitiesOfTimeModel.RelativeSeconds
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="border: 2px solid green; margin: 0em;" />
+
+                <div class="row" style="background-color: lightgray">
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <h3 style="text-align: center">Start</h3>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <h3 style="text-align: center">End</h3>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <h3 style="text-align: left">Time</h3>
+                    </div>
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <h3 style="text-align: left">Details</h3>
+                    </div>
+                </div>
+
+                <hr style="border: 2px solid green; margin: 0em;" />
+            }
+            else
+            {
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    <div id="row" class="row" style="min-height: 35px">
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
+                            <body>
+                                @Html.DisplayFor(modelItem => item.StartTimeDisplayOnly)
+                            </body>
+                        </div>
+
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
+                            @{
+                                if (item.EndDateTime == null)
+                                {
+                                    <div style="width: 75%; height: 100%">
+                                        <object>
+                                            <a asp-action="Stop" asp-route-id="@item.Id" class="btn btn-danger">Stop</a>
+                                        </object>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <body>
+                                        @Html.DisplayFor(modelItem => item.EndTimeDisplayOnly)
+
+                                    </body>
+                                }
+                            }
+                        </div>
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
+                            <body>
+                                <div class="row">
+                                    <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeMillenniums)">
+                                        Millenniums: @item.QuantitiesOfTimeModel.RelativeMillenniums
+                                    </div>
+                                    <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeCenturies)">
+                                        Centuries @item.QuantitiesOfTimeModel.RelativeCenturies
+                                    </div>
+                                    <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeDecades)">
+                                        Decades @item.QuantitiesOfTimeModel.RelativeDecades
+                                    </div>
+                                    <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeYears)">
+                                        Years: @item.QuantitiesOfTimeModel.RelativeYears
+                                    </div>
+                                    <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeMonths)">
+                                        Months: @item.QuantitiesOfTimeModel.RelativeMonths
+                                    </div>
+                                    <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeWeeks)">
+                                        Weeks: @item.QuantitiesOfTimeModel.RelativeWeeks
+                                    </div>
+                                    <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeDays)">
+                                        Days: @item.QuantitiesOfTimeModel.RelativeDays
+                                    </div>
+                                    <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeHours)">
+                                        Hours: @item.QuantitiesOfTimeModel.RelativeHours
+                                    </div>
+                                    <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeMinutes)">
+                                        Minutes: @item.QuantitiesOfTimeModel.RelativeMinutes
+                                    </div>
+                                    <div class="col" style="white-space: nowrap" hidden="@(!item.QuantitiesOfTimeModel.ShouldShowRelativeSeconds)">
+                                        Seconds @item.QuantitiesOfTimeModel.RelativeSeconds
+                                    </div>
+                                </div>
+                            </body>
+                        </div>
+                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
+                            <body>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </body>
+                        </div>
+                    </div>
+                    <hr style="border: 1px dotted green;  margin: 0em" />
+                </a>
+            }
+        }
+    }
+</div>
