@@ -15,12 +15,7 @@
     @{
         if (!Model.Any())
         {
-            <div style="text-align:center">
-                No records this week
-                <br />
-                <br />
-                <a asp-action="AllRecords" asp-route-id="@ViewBag.itemId" class="btn btn-primary">See More</a>
-            </div>
+            <div style="text-align:center">No records this week</div>
         }
         else
         {
@@ -161,5 +156,11 @@
                 }
             }
         }
+
+        <br />
+        <br />
+        <div style="text-align:center">
+            <a asp-action="AllRecords" asp-route-id="@ViewBag.itemId" class="btn btn-primary">See More</a>
+        </div>
     }
 </div>
