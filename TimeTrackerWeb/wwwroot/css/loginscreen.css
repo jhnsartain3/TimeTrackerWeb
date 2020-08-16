@@ -1,0 +1,64 @@
+.welcome_header {
+  color: #2B2B2B;
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  font-size: 54px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: bold;
+}
+
+.welcome_paragraph {
+  color: #a6a2a2;
+  text-align: center;
+  max-width: 80%;
+  display: block;
+  text-align: center;
+  margin-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: bold;
+}
+
+.time_tracker_background_image {
+  max-width: 80%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 56px;
+  width: 400px;
+}
+
+.email_input {
+    border: 0px;
+    border-radius: 15px;
+    margin-bottom: 8px;
+    height: 44px;
+    margin-top: 48px;
+    background-color: #edf1f4;
+}
+
+.login_button {
+    border: 0px;
+    background-color: #f14435;
+    margin-top: 16px;
+    border-radius: 15px;
+    height: 44px;
+}
+
+.password_input {
+    border: 0px;
+    border-radius: 15px;
+    background-color: #edf1f4;
+}
+
+.sign_up_text {
+  margin-top: 16px;
+  font-size: smaller;
+  text-align: center;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}

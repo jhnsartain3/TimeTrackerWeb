@@ -1,37 +1,38 @@
 ﻿@model UserModel
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c">
+<link rel="stylesheet" href="~/css/loginscreen.css">
+
 @{
     ViewData["Title"] = "Login";
     string username = ViewBag.username;
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="welcome_header">Welcome Back!</h1>
+<p class="welcome_paragraph">For all your time tracking needs</p>
 
-<hr/>
+<img class="time_tracker_background_image" src="~/img/time_tracker_background.png">
 
-<div class="row">
-    <div class="col-md-4">
+<div class="row justify-content-center">
+    <div class="col-md-4 justify-content-center">
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" value="@(string.IsNullOrEmpty(username) ? "" : username)"/>
+            <div>
+                <input asp-for="Username" class="form-control email_input" value="@(string.IsNullOrEmpty(username) ? "" : username)" placeholder="Email" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" type="password" class="form-control"/>
+            <div>
+                <input asp-for="Password" type="password" class="form-control password_input" placeholder="Password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary"/>
+            <div>
+                <input type="submit" value="Login" class="form-control login_button" />
             </div>
         </form>
     </div>
 </div>
 
-<br/>
-No Account? No problem! <a asp-action="SignUp">Sign Up</a>
+<p class="sign_up_text">No Account? No problem! <a asp-action="SignUp">Sign Up</a></p>
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
