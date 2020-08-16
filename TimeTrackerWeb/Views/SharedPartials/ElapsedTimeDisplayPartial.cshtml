@@ -1,0 +1,32 @@
+﻿@model TimeTrackerWeb.Models.Time.QuantitiesOfTimeModel
+
+<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeMillenniums)">
+    Millenniums: @Model.RelativeMillenniums
+</div>
+<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeCenturies)">
+    Centuries @Model.RelativeCenturies
+</div>
+<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeDecades)">
+    Decades @Model.RelativeDecades
+</div>
+<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeYears)">
+    Years: @Model.RelativeYears
+</div>
+<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeMonths)">
+    Months: @Model.RelativeMonths
+</div>
+<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeWeeks)">
+    Weeks: @Model.RelativeWeeks
+</div>
+<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeDays)">
+    Days: @Model.RelativeDays
+</div>
+<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeHours)">
+    Hours: @Model.RelativeHours
+</div>
+<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeMinutes)">
+    Minutes: @Model.RelativeMinutes
+</div>
+<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeSeconds)">
+    Seconds @Model.RelativeSeconds
+</div>
