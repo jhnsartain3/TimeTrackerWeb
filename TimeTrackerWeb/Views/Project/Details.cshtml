@@ -23,17 +23,14 @@
         </div>
     </div>
     <div class="row">
-        Totals:
+        <div class="col-12">Totals:</div>
         @Html.Partial("../SharedPartials/TotalElapsedTimeDisplayPartial", Model.QuantitiesOfTimeModel)
-    </div>
-    <div class="row">
-        <div class="col">
-            <br/>
-        </div>
-    </div>
-    <div class="row">
-        Relatives:
+        <br />
+        <br />
+        <div class="col-12">Relatives:</div>
         @Html.Partial("../SharedPartials/RelativeElapsedTimeDisplayPartial", Model.QuantitiesOfTimeModel)
+        <br />
+        <br />
     </div>
 </div>
 
