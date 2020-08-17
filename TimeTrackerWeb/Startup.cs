@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,6 +38,12 @@ namespace TimeTrackerWeb
             services.AddControllersWithViews();
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            // Register the Google Analytics configuration
+            services.Configure<GoogleAnalyticsOptions>(options => Configuration.GetSection("GoogleAnalytics").Bind(options));
+
+            // Register the TagHelperComponent
+            services.AddTransient<ITagHelperComponent, GoogleAnalyticsTagHelperComponent>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
