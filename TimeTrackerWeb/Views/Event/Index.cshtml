@@ -4,12 +4,19 @@
     ViewData["Title"] = "Events";
 }
 
-<h1 style="text-align:center">@ViewData["Title"]</h1>
-
-<body>
-    <a asp-action="Create" asp-route-id="@ViewBag.itemId" class="btn btn-success" style="margin-left: 30px">New Event</a>
-    <a asp-action="Start" asp-route-id="@ViewBag.itemId" style="float:right; margin-right: 30px" class="btn btn-primary">Start Clock</a>
-</body>
+<div class="row">
+    <div class="col-md-2 mx-auto">
+        <a asp-action="Create" asp-route-id="@ViewBag.itemId" class="btn btn-success" style="margin-left: 30px">New Event</a>
+    </div>
+    <div class="col-md-6 mx-auto">
+        <h1 style="text-align:center">@ViewData["Title"]</h1>
+    </div>
+    <div class="col-md-2 mx-auto">
+        <div class="float-right">
+            <a asp-action="Start" asp-route-id="@ViewBag.itemId" style="float:right; margin-right: 30px" class="btn btn-primary">Start Clock</a>
+        </div>
+    </div>
+</div>
 
 <div class="container" style="padding: 10px">
     @{
