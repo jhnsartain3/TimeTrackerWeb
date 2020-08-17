@@ -1,90 +1,48 @@
 ﻿@model IEnumerable<EventModelWithQuantitiesOfTimeAndDateTimeInfoHeaders>
 
-@{
-    ViewData["Title"] = "Events";
-}
-
-<h1 style="text-align:center">@ViewData["Title"]</h1>
-
 <div class="container" style="padding: 10px">
     @{
-        @foreach (var item in Model)
-        {
-            if (item.IsDateTimeInfoHeaderRecord)
+        <div class="row">
+            @foreach (var item in Model)
             {
-                <div class="row" style="min-height: 35px">
-                    <div class="row">
-                        <div class="col" style="white-space: nowrap">
+                if (item.IsDateTimeInfoHeaderRecord)
+                {
+                    <div class="col-12 badge badge-pill badge-primary" style="margin-top:20px;">
+                        <div class="row" style=" font-size:15px; padding:15px">
                             @item.HeaderDate.ToShortDateString()
+                            @Html.Partial("../SharedPartials/RelativeElapsedTimeDisplayPartial", item.QuantitiesOfTimeModel)
                         </div>
-                        @Html.Partial("../SharedPartials/RelativeElapsedTimeDisplayPartial", item.QuantitiesOfTimeModel)
                     </div>
-                </div>
-
-                <hr style="border: 2px solid green; margin: 0em;" />
-
-                <div class="row" style="background-color: lightgray">
-                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <h3 style="text-align: center">Start</h3>
-                    </div>
-                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <h3 style="text-align: center">End</h3>
-                    </div>
-                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <h3 style="text-align: left">Time</h3>
-                    </div>
-                    <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                        <h3 style="text-align: left">Details</h3>
-                    </div>
-                </div>
-
-                <hr style="border: 2px solid green; margin: 0em;" />
-            }
-            else
-            {
-                <a asp-action="Details" asp-route-id="@item.Id">
-                    <div id="row" class="row" style="min-height: 35px">
-                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
-                            <body>
-                                @Html.DisplayFor(modelItem => item.StartTimeDisplayOnly)
-                            </body>
-                        </div>
-
-                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
+                }
+                else
+                {
+                    <div class="card text-white bg-secondary mb-0" style="max-width: 18rem;margin:10px">
+                        <div class="card-header">
+                            @Html.DisplayFor(modelItem => item.StartTimeDisplayOnly)
+                            -
                             @{
                                 if (item.EndDateTime == null)
-                                {
-                                    <div style="width: 75%; height: 100%">
-                                        <object>
-                                            <a asp-action="Stop" asp-route-id="@item.Id" class="btn btn-danger">Stop</a>
-                                        </object>
-                                    </div>
-                                }
+                                { <a asp-action="Stop" asp-route-id="@item.Id" class="btn btn-danger">Stop</a> }
                                 else
-                                {
-                                    <body>
-                                        @Html.DisplayFor(modelItem => item.EndTimeDisplayOnly)
-
-                                    </body>
-                                }
+                                { @Html.DisplayFor(modelItem => item.EndTimeDisplayOnly) }
                             }
                         </div>
-                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
-                            <body>
-                                <div class="row">
-                                    @Html.Partial("../SharedPartials/RelativeElapsedTimeDisplayPartial", item.QuantitiesOfTimeModel)
-                                </div>
-                            </body>
-                        </div>
-                        <div class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
-                            <body>
+
+                        <div class="card-body" style="padding-bottom:0px">
+                            <h5 class="card-title">
                                 @Html.DisplayFor(modelItem => item.Description)
-                            </body>
+                            </h5>
+
+                            <text class="card-text">
+                                @Html.Partial("../SharedPartials/RelativeElapsedTimeDisplayPartial", item.QuantitiesOfTimeModel)
+                            </text>
+                        </div>
+                        <div class="align-self-center">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn rounded" style="width:100%">✏️</a>
                         </div>
                     </div>
-                    <hr style="border: 1px dotted green;  margin: 0em" />
-                </a>
+                }
             }
-        }
+        </div>
     }
 </div>
