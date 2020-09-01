@@ -25,7 +25,7 @@ namespace TimeTrackerWeb
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(60*24);
+                options.IdleTimeout = TimeSpan.FromDays(30);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
