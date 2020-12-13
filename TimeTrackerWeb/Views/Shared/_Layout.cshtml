@@ -1,68 +1,70 @@
-﻿<!DOCTYPE html>
+﻿@using System.Text
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/gridstyles.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/css/gridstyles.css"/>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/timetracker_logo.svg" width="100%" height="auto" alt="Time Tracker" /></a>
-                <div class="nav navbar-nav navbar-right">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" href="https://sartainstudios.com/EntityInformation?title=Time%20Tracker" target="_blank">About</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        @{
-                            var ableToRetrieveUsername = Context.Session.TryGetValue("username", out var sessionName);
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/img/timetracker_logo.svg" width="100%" height="auto" alt="Time Tracker"/>
+            </a>
+            <div class="nav navbar-nav navbar-right">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="https://sartainstudios.com/EntityInformation?title=Time%20Tracker" target="_blank">About</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    @{
+                        var ableToRetrieveUsername = Context.Session.TryGetValue("username", out var sessionName);
 
-                            if (ableToRetrieveUsername)
-                            {
-                                var result = System.Text.Encoding.UTF8.GetString(sessionName);
-                                <div class="navbar-nav flex-grow-1">
-                                    <p class="navbar-nav flex-grow-1">| @result</p>
-                                    <p class="navbar-nav flex-grow-1" style="color: white">||</p>
-                                    <div>
-                                        <a class="navbar-nav flex-grow-1" asp-area="" asp-controller="Authentication" asp-action="Logout">Logout</a>
-                                    </div>
+                        if (ableToRetrieveUsername)
+                        {
+                            var result = Encoding.UTF8.GetString(sessionName);
+                            <div class="navbar-nav flex-grow-1">
+                                <p class="navbar-nav flex-grow-1">| @result</p>
+                                <p class="navbar-nav flex-grow-1" style="color: white">||</p>
+                                <div>
+                                    <a class="navbar-nav flex-grow-1" asp-area="" asp-controller="Authentication" asp-action="Logout">Logout</a>
                                 </div>
-                            }
+                            </div>
                         }
-                    </div>
+                    }
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container" style="text-align:right">
-            &copy; 2020 - <a href="http://www.sartainstudios.com" target="_blank">Sartain Studios</a>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", false)
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container" style="text-align:right">
+        &copy; 2020 - <a href="http://www.sartainstudios.com" target="_blank">Sartain Studios</a>
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+@RenderSection("Scripts", false)
 </body>
 </html>
