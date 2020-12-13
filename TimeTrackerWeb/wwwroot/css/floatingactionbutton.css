@@ -1,0 +1,6 @@
+﻿.fab-wrapper {
+    position: fixed;
+    bottom: 5rem;
+    right: 3rem;
+    z-index: 100 !important;
+}
