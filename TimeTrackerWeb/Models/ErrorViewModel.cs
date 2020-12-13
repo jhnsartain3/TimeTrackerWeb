@@ -2,6 +2,8 @@ namespace TimeTrackerWeb.Models
 {
     public class ErrorViewModel
     {
+        public bool IsAuthorizationIssue { get; set; }
+
         public string RequestId { get; set; }
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 

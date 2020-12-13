@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Sartain_Studios_Common.Logging;
-using System.Diagnostics;
 using TimeTrackerWeb.Models;
 
 namespace TimeTrackerWeb.Controllers
 {
     public class ErrorController : Controller
     {
-        private ILoggerWrapper _loggerWrapper;
+        private readonly ILoggerWrapper _loggerWrapper;
 
         public ErrorController(ILoggerWrapper loggerWrapper)
         {
@@ -19,13 +19,23 @@ namespace TimeTrackerWeb.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            var errorReason = DetermineErrorReason();
+
+            if (errorReason.IsAuthorizationIssue)
+                return RedirectToAction("Login", "Authentication");
+
+            return View(errorReason);
+        }
+
+        private ErrorViewModel DetermineErrorReason()
+        {
             var error = HttpContext.Features.Get<IExceptionHandlerFeature>();
             var httpRequestFeature = HttpContext.Features.Get<IHttpRequestFeature>();
 
             var exception = error.Error;
 
-            _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(Error) + "()", null);
-            _loggerWrapper.LogError(exception.InnerException.Message, this.GetType().Name, nameof(Error) + "()", null);
+            _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(Error) + "()", null);
+            _loggerWrapper.LogError(exception.InnerException.Message, GetType().Name, nameof(Error) + "()", null);
 
             var path = httpRequestFeature.RawTarget;
             var httpMethod = Request.Method;
@@ -35,20 +45,23 @@ namespace TimeTrackerWeb.Controllers
                 ? exception.InnerException.ToString()
                 : "None";
 
-            if (innerException.Contains("Unauthorized") || userFriendlyMessage.Contains("Unauthorized"))
-                return RedirectToAction("Login", "Authentication");
-
             var requestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
 
-            return View(new ErrorViewModel
+            var isAuthorizationIssue = false;
+
+            if (innerException.Contains("Unauthorized") || userFriendlyMessage.Contains("Unauthorized"))
+                isAuthorizationIssue = true;
+
+            return new ErrorViewModel
             {
                 RequestId = requestId,
                 Path = path,
                 HttpMethod = httpMethod,
                 UserFriendlyMessage = userFriendlyMessage,
                 StackTrace = stackTrace,
-                InnerException = innerException
-            });
+                InnerException = innerException,
+                IsAuthorizationIssue = isAuthorizationIssue
+            };
         }
     }
 }
