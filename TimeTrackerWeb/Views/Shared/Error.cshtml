@@ -1,49 +1,55 @@
 ﻿@model ErrorViewModel
-@{
-    ViewData["Title"] = "Error";
-}
 
-<h1 class="text-danger">@ViewData["Title"]</h1>
-<h2 class="text-danger">An error occurred while processing your request</h2>
+<div id="userFriendlyIssueDiv">
+    <h1 class="text-danger">Uh oh, an error has occurred</h1>
 
-@if (Model.ShowUserFriendlyMessage)
-{
-    <p>
-        <strong>Reason: </strong> <code>@Model.UserFriendlyMessage</code>
-    </p>
-}
+    <input type="submit" value="Show Nerd Details" id="showActualErrorButton" class="btn btn-danger"/>
+</div>
+<div id="actualIssueDiv" style="visibility: hidden">
+    <h1 class="text-danger">Error</h1>
+    <h2 class="text-danger">An error occurred while processing your request</h2>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID: </strong> <code>@Model.RequestId</code>
-    </p>
-}
+    @if (Model.ShowUserFriendlyMessage)
+    {
+        <p>
+            <strong>Reason: </strong> <code>@Model.UserFriendlyMessage</code>
+        </p>
+    }
 
-@if (Model.ShowPath)
-{
-    <p>
-        <strong>Path: </strong> <code>@Model.Path</code>
-    </p>
-}
+    @if (Model.ShowRequestId)
+    {
+        <p>
+            <strong>Request ID: </strong> <code>@Model.RequestId</code>
+        </p>
+    }
 
-@if (Model.ShowHttpMethod)
-{
-    <p>
-        <strong>Http Method: </strong> <code>@Model.HttpMethod</code>
-    </p>
-}
+    @if (Model.ShowPath)
+    {
+        <p>
+            <strong>Path: </strong> <code>@Model.Path</code>
+        </p>
+    }
 
-@if (Model.ShowInnerException)
-{
-    <p>
-        <strong>Inner Exception: </strong> <code>@Model.InnerException</code>
-    </p>
-}
+    @if (Model.ShowHttpMethod)
+    {
+        <p>
+            <strong>Http Method: </strong> <code>@Model.HttpMethod</code>
+        </p>
+    }
 
-@if (Model.ShowStackTrace)
-{
-    <p>
-        <strong>StackTrace: </strong> <code>@Model.StackTrace</code>
-    </p>
-}
+    @if (Model.ShowInnerException)
+    {
+        <p>
+            <strong>Inner Exception: </strong> <code>@Model.InnerException</code>
+        </p>
+    }
+
+    @if (Model.ShowStackTrace)
+    {
+        <p>
+            <strong>StackTrace: </strong> <code>@Model.StackTrace</code>
+        </p>
+    }
+</div>
+
+<script src="~/js/errorpage.js"></script>
