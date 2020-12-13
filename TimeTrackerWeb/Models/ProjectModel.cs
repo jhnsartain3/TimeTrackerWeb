@@ -16,6 +16,6 @@ namespace TimeTrackerWeb.Models
         [MinLength(3)]
         public string Description { get; set; }
 
-        public QuantitiesOfTimeModel QuantitiesOfTimeModel {get;set;}
+        public QuantitiesOfTimeModel QuantitiesOfTimeModel { get; set; }
     }
 }

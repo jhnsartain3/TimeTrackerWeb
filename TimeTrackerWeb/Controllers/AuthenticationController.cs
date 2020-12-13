@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sartain_Studios_Common.Logging;
-using System;
-using System.Threading.Tasks;
 using TimeTrackerWeb.Models;
 
 namespace TimeTrackerWeb.Controllers
@@ -20,7 +20,7 @@ namespace TimeTrackerWeb.Controllers
         {
             var userName = HttpContext.Session.GetString("username");
 
-            _loggerWrapper.LogInformation("HttpContext saved username: " + userName, this.GetType().Name, nameof(Login) + "()", null);
+            _loggerWrapper.LogInformation("HttpContext saved username: " + userName, GetType().Name, nameof(Login) + "()", null);
 
             ViewBag.username = userName;
 
@@ -30,7 +30,7 @@ namespace TimeTrackerWeb.Controllers
         // GET: Authentication/Login
         public IActionResult SignUp()
         {
-            _loggerWrapper.LogInformation("Sign Up", this.GetType().Name, nameof(SignUp) + "()", null);
+            _loggerWrapper.LogInformation("Sign Up", GetType().Name, nameof(SignUp) + "()", null);
 
             return View();
         }
@@ -38,9 +38,9 @@ namespace TimeTrackerWeb.Controllers
         // GET: Authentication/Logout
         public IActionResult Logout()
         {
-            _loggerWrapper.LogInformation("Logging out", this.GetType().Name, nameof(Logout) + "()", null);
+            _loggerWrapper.LogInformation("Logging out", GetType().Name, nameof(Logout) + "()", null);
 
-            _loggerWrapper.LogInformation("Logging out username: " + HttpContext.Session.GetString("username"), this.GetType().Name, nameof(Logout) + "()", null);
+            _loggerWrapper.LogInformation("Logging out username: " + HttpContext.Session.GetString("username"), GetType().Name, nameof(Logout) + "()", null);
 
             HttpContext.Session.Remove("authenticationToken");
             HttpContext.Session.Remove("username");
@@ -58,15 +58,15 @@ namespace TimeTrackerWeb.Controllers
             {
                 var token = await PostWithResultAsync(TimeTrackerLoginApiSubPath, model);
 
-                _loggerWrapper.LogInformation("authenticationToken: " + token, this.GetType().Name, nameof(Login) + "()", null);
+                _loggerWrapper.LogInformation("authenticationToken: " + token, GetType().Name, nameof(Login) + "()", null);
 
                 HttpContext.Session.SetString("authenticationToken", token);
             }
             catch (Exception exception)
             {
-                _loggerWrapper.LogError("Unable to login: " + model.Username + " " + model.UserId, this.GetType().Name, nameof(Login) + "()", null);
-                _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(Login) + "()", null);
-                _loggerWrapper.LogError(exception.InnerException.Message, this.GetType().Name, nameof(Login) + "()", null);
+                _loggerWrapper.LogError("Unable to login: " + model.Username + " " + model.UserId, GetType().Name, nameof(Login) + "()", null);
+                _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(Login) + "()", null);
+                _loggerWrapper.LogError(exception.InnerException.Message, GetType().Name, nameof(Login) + "()", null);
 
                 throw new Exception("Unable to login", exception);
             }
@@ -76,20 +76,20 @@ namespace TimeTrackerWeb.Controllers
                 var userInformation = await GetById(TimeTrackerUserInformationApiSubPath, model.Username,
                     GetAuthenticationTokenFromSession());
 
-                _loggerWrapper.LogInformation("username: " + userInformation, this.GetType().Name, nameof(Login) + "()", null);
+                _loggerWrapper.LogInformation("username: " + userInformation, GetType().Name, nameof(Login) + "()", null);
 
                 HttpContext.Session.SetString("username", userInformation.Username);
             }
             catch (Exception exception)
             {
-                _loggerWrapper.LogError("Unable to retrieve use details: " + model.Username + " " + model.UserId, this.GetType().Name, nameof(Login) + "()", null);
-                _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(Login) + "()", null);
-                _loggerWrapper.LogError(exception.InnerException.Message, this.GetType().Name, nameof(Login) + "()", null);
+                _loggerWrapper.LogError("Unable to retrieve use details: " + model.Username + " " + model.UserId, GetType().Name, nameof(Login) + "()", null);
+                _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(Login) + "()", null);
+                _loggerWrapper.LogError(exception.InnerException.Message, GetType().Name, nameof(Login) + "()", null);
 
                 throw new Exception("Unable to retrieve use details", exception);
             }
 
-            _loggerWrapper.LogInformation("Login Completed", this.GetType().Name, nameof(Login) + "()", null);
+            _loggerWrapper.LogInformation("Login Completed", GetType().Name, nameof(Login) + "()", null);
 
             return RedirectToAction("Index", "Home");
         }
@@ -104,7 +104,7 @@ namespace TimeTrackerWeb.Controllers
             {
                 var resultMessage = await PostWithResultAsync(TimeTrackerSignUpApiSubPath, model);
 
-                _loggerWrapper.LogInformation(resultMessage, this.GetType().Name, nameof(SignUp) + "()", null);
+                _loggerWrapper.LogInformation(resultMessage, GetType().Name, nameof(SignUp) + "()", null);
 
                 if (resultMessage.Equals("User " + model.Username + " created successfully"))
                 {
@@ -117,25 +117,24 @@ namespace TimeTrackerWeb.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "Could not create user. Try again later");
 
-                    _loggerWrapper.LogError("Could not create user. Try again later", this.GetType().Name, nameof(SignUp) + "()", null);
+                    _loggerWrapper.LogError("Could not create user. Try again later", GetType().Name, nameof(SignUp) + "()", null);
 
                     return View();
                 }
-
             }
             catch (Exception exception)
             {
                 if (exception.InnerException != null && exception.InnerException.Message.Contains("The value is already in use: " + model.Username))
                 {
-                    _loggerWrapper.LogInformation("Username already taken: " + nameof(UserModel.Username), this.GetType().Name, nameof(SignUp) + "()", null);
+                    _loggerWrapper.LogInformation("Username already taken: " + nameof(UserModel.Username), GetType().Name, nameof(SignUp) + "()", null);
 
                     ModelState.AddModelError(nameof(UserModel.Username), "Username already taken");
 
                     return View();
                 }
 
-                _loggerWrapper.LogError("Something went wrong during registration: " + nameof(UserModel.Username), this.GetType().Name, nameof(SignUp) + "()", null);
-                _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(SignUp) + "()", null);
+                _loggerWrapper.LogError("Something went wrong during registration: " + nameof(UserModel.Username), GetType().Name, nameof(SignUp) + "()", null);
+                _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(SignUp) + "()", null);
 
                 throw new Exception("Something went wrong during registration", exception);
             }
@@ -145,7 +144,7 @@ namespace TimeTrackerWeb.Controllers
         {
             var authenticationToken = HttpContext.Session.GetString("authenticationToken");
 
-            _loggerWrapper.LogInformation(authenticationToken, this.GetType().Name, nameof(GetAuthenticationTokenFromSession) + "()", null);
+            _loggerWrapper.LogInformation(authenticationToken, GetType().Name, nameof(GetAuthenticationTokenFromSession) + "()", null);
 
             return authenticationToken;
         }

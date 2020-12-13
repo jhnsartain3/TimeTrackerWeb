@@ -1,9 +1,9 @@
-﻿using Httwrap;
-using Microsoft.EntityFrameworkCore;
-using Sartain_Studios_Common.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Httwrap;
+using Microsoft.EntityFrameworkCore;
+using Sartain_Studios_Common.Logging;
 
 namespace TimeTrackerWeb.Controllers
 {
@@ -20,7 +20,7 @@ namespace TimeTrackerWeb.Controllers
         {
             List<TEntity> result;
 
-            _loggerWrapper.LogInformation("path: " + path, this.GetType().Name, nameof(GetAll) + "()", null);
+            _loggerWrapper.LogInformation("path: " + path, GetType().Name, nameof(GetAll) + "()", null);
 
             try
             {
@@ -28,9 +28,9 @@ namespace TimeTrackerWeb.Controllers
             }
             catch (Exception exception)
             {
-                _loggerWrapper.LogError("Failed to retrieve items", this.GetType().Name, nameof(GetAll) + "()", null);
-                _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(GetAll) + "()", null);
-                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, this.GetType().Name, nameof(GetAll) + "()", null);
+                _loggerWrapper.LogError("Failed to retrieve items", GetType().Name, nameof(GetAll) + "()", null);
+                _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(GetAll) + "()", null);
+                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, GetType().Name, nameof(GetAll) + "()", null);
 
                 throw new Exception("Failed to retrieve items", exception);
             }
@@ -42,7 +42,7 @@ namespace TimeTrackerWeb.Controllers
         {
             List<TEntity> result;
 
-            _loggerWrapper.LogInformation("path: " + path + " " + "itemId: " + itemId, this.GetType().Name, nameof(GetAllById) + "()", null);
+            _loggerWrapper.LogInformation("path: " + path + " " + "itemId: " + itemId, GetType().Name, nameof(GetAllById) + "()", null);
 
             try
             {
@@ -50,9 +50,9 @@ namespace TimeTrackerWeb.Controllers
             }
             catch (Exception exception)
             {
-                _loggerWrapper.LogError("Failed to find items with ID: ", this.GetType().Name, nameof(GetAllById) + "()", null);
-                _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(GetAllById) + "()", null);
-                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, this.GetType().Name, nameof(GetAllById) + "()", null);
+                _loggerWrapper.LogError("Failed to find items with ID: ", GetType().Name, nameof(GetAllById) + "()", null);
+                _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(GetAllById) + "()", null);
+                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, GetType().Name, nameof(GetAllById) + "()", null);
 
                 throw new Exception("Failed to find items with ID: " + itemId, exception);
             }
@@ -64,7 +64,7 @@ namespace TimeTrackerWeb.Controllers
         {
             List<T> result;
 
-            _loggerWrapper.LogInformation("path: " + path + " " + "itemId: " + itemId, this.GetType().Name, nameof(GetAllById) + "()", null);
+            _loggerWrapper.LogInformation("path: " + path + " " + "itemId: " + itemId, GetType().Name, nameof(GetAllById) + "()", null);
 
             try
             {
@@ -72,9 +72,9 @@ namespace TimeTrackerWeb.Controllers
             }
             catch (Exception exception)
             {
-                _loggerWrapper.LogError("Failed to find items with ID: " + itemId, this.GetType().Name, nameof(GetAllById) + "()", null);
-                _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(GetAllById) + "()", null);
-                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, this.GetType().Name, nameof(GetAllById) + "()", null);
+                _loggerWrapper.LogError("Failed to find items with ID: " + itemId, GetType().Name, nameof(GetAllById) + "()", null);
+                _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(GetAllById) + "()", null);
+                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, GetType().Name, nameof(GetAllById) + "()", null);
 
                 throw new Exception("Failed to find items with ID: " + itemId, exception);
             }
@@ -86,7 +86,7 @@ namespace TimeTrackerWeb.Controllers
         {
             TEntity result;
 
-            _loggerWrapper.LogInformation("path: " + path + " " + "id: " + id, this.GetType().Name, nameof(GetById) + "()", null);
+            _loggerWrapper.LogInformation("path: " + path + " " + "id: " + id, GetType().Name, nameof(GetById) + "()", null);
 
             try
             {
@@ -94,16 +94,16 @@ namespace TimeTrackerWeb.Controllers
             }
             catch (HttwrapException httwrapException)
             {
-                _loggerWrapper.LogError("Failed to find item with ID: " + id, this.GetType().Name, nameof(GetById) + "()", null);
-                _loggerWrapper.LogError(httwrapException.Message, this.GetType().Name, nameof(GetById) + "()", null);
-                _loggerWrapper.LogError(httwrapException.InnerException != null ? httwrapException.InnerException.Message : null, this.GetType().Name, nameof(GetById) + "()", null);
+                _loggerWrapper.LogError("Failed to find item with ID: " + id, GetType().Name, nameof(GetById) + "()", null);
+                _loggerWrapper.LogError(httwrapException.Message, GetType().Name, nameof(GetById) + "()", null);
+                _loggerWrapper.LogError(httwrapException.InnerException != null ? httwrapException.InnerException.Message : null, GetType().Name, nameof(GetById) + "()", null);
 
                 throw new HttwrapException("Failed to find item with ID: " + id, httwrapException);
             }
 
             if (result == null)
             {
-                _loggerWrapper.LogError("Failed to find item with ID: " + id, this.GetType().Name, nameof(GetById) + "()", null);
+                _loggerWrapper.LogError("Failed to find item with ID: " + id, GetType().Name, nameof(GetById) + "()", null);
 
                 throw new Exception("Failed to find item with ID: " + id);
             }
@@ -115,7 +115,7 @@ namespace TimeTrackerWeb.Controllers
         {
             T result;
 
-            _loggerWrapper.LogInformation("path: " + path + " " + "id: " + id, this.GetType().Name, nameof(GetById) + "()", null);
+            _loggerWrapper.LogInformation("path: " + path + " " + "id: " + id, GetType().Name, nameof(GetById) + "()", null);
 
             try
             {
@@ -123,16 +123,16 @@ namespace TimeTrackerWeb.Controllers
             }
             catch (HttwrapException httwrapException)
             {
-                _loggerWrapper.LogError("Failed to find item with ID: " + id, this.GetType().Name, nameof(GetById) + "()", null);
-                _loggerWrapper.LogError(httwrapException.Message, this.GetType().Name, nameof(GetById) + "()", null);
-                _loggerWrapper.LogError(httwrapException.InnerException != null ? httwrapException.InnerException.Message : null, this.GetType().Name, nameof(GetById) + "()", null);
+                _loggerWrapper.LogError("Failed to find item with ID: " + id, GetType().Name, nameof(GetById) + "()", null);
+                _loggerWrapper.LogError(httwrapException.Message, GetType().Name, nameof(GetById) + "()", null);
+                _loggerWrapper.LogError(httwrapException.InnerException != null ? httwrapException.InnerException.Message : null, GetType().Name, nameof(GetById) + "()", null);
 
                 throw new HttwrapException("Failed to find item with ID: " + id, httwrapException);
             }
 
             if (result == null)
             {
-                _loggerWrapper.LogError("Failed to find item with ID: " + id, this.GetType().Name, nameof(GetById) + "()", null);
+                _loggerWrapper.LogError("Failed to find item with ID: " + id, GetType().Name, nameof(GetById) + "()", null);
 
                 throw new Exception("Failed to find item with ID: " + id);
             }
@@ -142,7 +142,7 @@ namespace TimeTrackerWeb.Controllers
 
         public async Task Post(string path, TEntity model, string token = null)
         {
-            _loggerWrapper.LogInformation("path: " + path, this.GetType().Name, nameof(Post) + "()", null);
+            _loggerWrapper.LogInformation("path: " + path, GetType().Name, nameof(Post) + "()", null);
 
             try
             {
@@ -150,9 +150,9 @@ namespace TimeTrackerWeb.Controllers
             }
             catch (Exception exception)
             {
-                _loggerWrapper.LogError("Failed to create item", this.GetType().Name, nameof(Post) + "()", null);
-                _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(Post) + "()", null);
-                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, this.GetType().Name, nameof(Post) + "()", null);
+                _loggerWrapper.LogError("Failed to create item", GetType().Name, nameof(Post) + "()", null);
+                _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(Post) + "()", null);
+                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, GetType().Name, nameof(Post) + "()", null);
 
                 throw new Exception("Failed to create item", exception);
             }
@@ -160,7 +160,7 @@ namespace TimeTrackerWeb.Controllers
 
         public async Task<string> PostWithResultAsync(string path, TEntity model, string token = null)
         {
-            _loggerWrapper.LogInformation("path: " + path, this.GetType().Name, nameof(PostWithResultAsync) + "()", null);
+            _loggerWrapper.LogInformation("path: " + path, GetType().Name, nameof(PostWithResultAsync) + "()", null);
 
             try
             {
@@ -168,9 +168,9 @@ namespace TimeTrackerWeb.Controllers
             }
             catch (Exception exception)
             {
-                _loggerWrapper.LogError("Failed to create item", this.GetType().Name, nameof(PostWithResultAsync) + "()", null);
-                _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(PostWithResultAsync) + "()", null);
-                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, this.GetType().Name, nameof(PostWithResultAsync) + "()", null);
+                _loggerWrapper.LogError("Failed to create item", GetType().Name, nameof(PostWithResultAsync) + "()", null);
+                _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(PostWithResultAsync) + "()", null);
+                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, GetType().Name, nameof(PostWithResultAsync) + "()", null);
 
                 throw new Exception("Failed to create item", exception);
             }
@@ -178,7 +178,7 @@ namespace TimeTrackerWeb.Controllers
 
         public async Task<bool> Update(string path, string id, TEntity model, string token = null)
         {
-            _loggerWrapper.LogInformation("path: " + path + " " + "id: " + id, this.GetType().Name, nameof(Update) + "()", null);
+            _loggerWrapper.LogInformation("path: " + path + " " + "id: " + id, GetType().Name, nameof(Update) + "()", null);
 
             try
             {
@@ -189,15 +189,13 @@ namespace TimeTrackerWeb.Controllers
                 try
                 {
                     if (await HttpClientWrapper.GetByIdAsync(path, id, token) != null)
-                    {
                         throw new Exception("Failed to update item ");
-                    }
                 }
                 catch (Exception exception)
                 {
-                    _loggerWrapper.LogError("Failed to find item with ID: " + id, this.GetType().Name, nameof(Update) + "()", null);
-                    _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(GetById) + "()", null);
-                    _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, this.GetType().Name, nameof(Update) + "()", null);
+                    _loggerWrapper.LogError("Failed to find item with ID: " + id, GetType().Name, nameof(Update) + "()", null);
+                    _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(GetById) + "()", null);
+                    _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, GetType().Name, nameof(Update) + "()", null);
 
                     throw new Exception("Failed to find item with ID: " + id, exception);
                 }
@@ -206,9 +204,10 @@ namespace TimeTrackerWeb.Controllers
             }
             catch (Exception exception)
             {
-                _loggerWrapper.LogError("Failed to update item", this.GetType().Name, nameof(Update) + "()", null);
-                _loggerWrapper.LogError(exception.Message, this.GetType().Name, nameof(Update) + "()", null);
-                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null, this.GetType().Name, nameof(Update) + "()", null);
+                _loggerWrapper.LogError("Failed to update item", GetType().Name, nameof(Update) + "()", null);
+                _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(Update) + "()", null);
+                _loggerWrapper.LogError(exception.InnerException != null ? exception.InnerException.Message : null,
+                    GetType().Name, nameof(Update) + "()", null);
 
                 throw new Exception("Failed to update item ", exception);
             }
@@ -216,7 +215,7 @@ namespace TimeTrackerWeb.Controllers
 
         public async Task DeleteById(string path, string id, string token = null)
         {
-            _loggerWrapper.LogInformation("path: " + path + " " + "id: " + id, this.GetType().Name, nameof(DeleteById) + "()", null);
+            _loggerWrapper.LogInformation("path: " + path + " " + "id: " + id, GetType().Name, nameof(DeleteById) + "()", null);
 
             try
             {
@@ -224,9 +223,9 @@ namespace TimeTrackerWeb.Controllers
             }
             catch (HttwrapException httwrapException)
             {
-                _loggerWrapper.LogError("Failed to find item with ID: " + id, this.GetType().Name, nameof(DeleteById) + "()", null);
-                _loggerWrapper.LogError(httwrapException.Message, this.GetType().Name, nameof(DeleteById) + "()", null);
-                _loggerWrapper.LogError(httwrapException.InnerException != null ? httwrapException.InnerException.Message : null, this.GetType().Name, nameof(DeleteById) + "()", null);
+                _loggerWrapper.LogError("Failed to find item with ID: " + id, GetType().Name, nameof(DeleteById) + "()", null);
+                _loggerWrapper.LogError(httwrapException.Message, GetType().Name, nameof(DeleteById) + "()", null);
+                _loggerWrapper.LogError(httwrapException.InnerException != null ? httwrapException.InnerException.Message : null, GetType().Name, nameof(DeleteById) + "()", null);
 
                 throw new HttwrapException("Failed to find item with ID: " + id, httwrapException);
             }

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sartain_Studios_Common.Logging;
-using System;
-using System.Threading.Tasks;
 using TimeTrackerWeb.Models;
 
 namespace TimeTrackerWeb.Controllers
@@ -18,10 +18,11 @@ namespace TimeTrackerWeb.Controllers
         {
             ViewBag.itemId = id;
 
-            _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(Index) + "()", null);
+            _loggerWrapper.LogInformation("id: " + id, GetType().Name, nameof(Index) + "()", null);
 
-            return View(await GetAllById<EventModelWithQuantitiesOfTimeAndDateTimeInfoHeaders>(TimeTrackerApiSubPath + "/ByProjectIdSinceSundayWithQuantitiesOfTimeAndDateTimeInfoHeaders", id,
-                GetAuthenticationTokenFromSession())); 
+            return View(await GetAllById<EventModelWithQuantitiesOfTimeAndDateTimeInfoHeaders>(
+                TimeTrackerApiSubPath + "/ByProjectIdSinceSundayWithQuantitiesOfTimeAndDateTimeInfoHeaders", id,
+                GetAuthenticationTokenFromSession()));
         }
 
         // GET: Event/AllRecords/5
@@ -29,16 +30,17 @@ namespace TimeTrackerWeb.Controllers
         {
             ViewBag.itemId = id;
 
-            _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(AllRecords) + "()", null);
+            _loggerWrapper.LogInformation("id: " + id, GetType().Name, nameof(AllRecords) + "()", null);
 
-            return View(await GetAllById<EventModelWithQuantitiesOfTimeAndDateTimeInfoHeaders>(TimeTrackerApiSubPath + "/GetAllByIdWithQuantitiesOfTimeAndDateTimeInfoHeaders", id,
+            return View(await GetAllById<EventModelWithQuantitiesOfTimeAndDateTimeInfoHeaders>(
+                TimeTrackerApiSubPath + "/GetAllByIdWithQuantitiesOfTimeAndDateTimeInfoHeaders", id,
                 GetAuthenticationTokenFromSession()));
         }
 
         // GET: Event/Details/5
         public async Task<IActionResult> Details(string id)
         {
-            _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(Details) + "()", null);
+            _loggerWrapper.LogInformation("id: " + id, GetType().Name, nameof(Details) + "()", null);
 
             return View(await GetById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession()));
         }
@@ -46,7 +48,7 @@ namespace TimeTrackerWeb.Controllers
         // GET: Event/Create/5
         public IActionResult Create(string id)
         {
-            _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(Create) + "()", null);
+            _loggerWrapper.LogInformation("id: " + id, GetType().Name, nameof(Create) + "()", null);
 
             var dateTime = DateTime.Now;
 
@@ -63,7 +65,7 @@ namespace TimeTrackerWeb.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            _loggerWrapper.LogInformation("model.UserId: " + model.UserId, this.GetType().Name, nameof(Create) + "()", null);
+            _loggerWrapper.LogInformation("model.UserId: " + model.UserId, GetType().Name, nameof(Create) + "()", null);
 
             // Model's Id value seems to be magically set to the Model's Projectid
             model.Id = null;
@@ -76,7 +78,7 @@ namespace TimeTrackerWeb.Controllers
         // GET: Event/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(Edit) + "()", null);
+            _loggerWrapper.LogInformation("id: " + id, GetType().Name, nameof(Edit) + "()", null);
 
             return View(await GetById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession()));
         }
@@ -89,7 +91,7 @@ namespace TimeTrackerWeb.Controllers
 
             if (!ModelState.IsValid) return View(model);
 
-            _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(Edit) + "()", null);
+            _loggerWrapper.LogInformation("id: " + id, GetType().Name, nameof(Edit) + "()", null);
 
             await Update(TimeTrackerApiSubPath, id, model, GetAuthenticationTokenFromSession());
 
@@ -99,7 +101,7 @@ namespace TimeTrackerWeb.Controllers
         // GET: Event/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
-            _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(Delete) + "()", null);
+            _loggerWrapper.LogInformation("id: " + id, GetType().Name, nameof(Delete) + "()", null);
 
             return View(await GetById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession()));
         }
@@ -110,7 +112,7 @@ namespace TimeTrackerWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id, string projectId)
         {
-            _loggerWrapper.LogInformation("id: " + id + " " + "projectId: " + projectId, this.GetType().Name, nameof(DeleteConfirmed) + "()", null);
+            _loggerWrapper.LogInformation("id: " + id + " " + "projectId: " + projectId, GetType().Name, nameof(DeleteConfirmed) + "()", null);
 
             await DeleteById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession());
 
@@ -120,7 +122,7 @@ namespace TimeTrackerWeb.Controllers
         // GET: Event/Stop/5
         public async Task<IActionResult> Stop(string id)
         {
-            _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(Stop) + "()", null);
+            _loggerWrapper.LogInformation("id: " + id, GetType().Name, nameof(Stop) + "()", null);
 
             var itemModel = await GetById(TimeTrackerApiSubPath, id, GetAuthenticationTokenFromSession());
 
@@ -137,7 +139,7 @@ namespace TimeTrackerWeb.Controllers
         // GET: Event/Start/5
         public async Task<IActionResult> Start(string id)
         {
-            _loggerWrapper.LogInformation("id: " + id, this.GetType().Name, nameof(Start) + "()", null);
+            _loggerWrapper.LogInformation("id: " + id, GetType().Name, nameof(Start) + "()", null);
 
             var dateTime = DateTime.Now;
 
@@ -156,7 +158,7 @@ namespace TimeTrackerWeb.Controllers
         {
             var authenticationToken = HttpContext.Session.GetString("authenticationToken");
 
-            _loggerWrapper.LogInformation(authenticationToken, this.GetType().Name, nameof(GetAuthenticationTokenFromSession) + "()", null);
+            _loggerWrapper.LogInformation(authenticationToken, GetType().Name, nameof(GetAuthenticationTokenFromSession) + "()", null);
 
             return authenticationToken;
         }

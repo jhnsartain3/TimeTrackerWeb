@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -5,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sartain_Studios_Common.Logging;
-using System;
 using TimeTrackerWeb.External;
 
 namespace TimeTrackerWeb
@@ -57,6 +57,7 @@ namespace TimeTrackerWeb
             else
             {
                 app.UseExceptionHandler("/Error/Error");
+
                 app.UseHsts();
             }
 

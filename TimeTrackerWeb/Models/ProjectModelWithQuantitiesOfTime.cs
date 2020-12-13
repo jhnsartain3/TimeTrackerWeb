@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TimeTrackerWeb.Models.Time;
+﻿using TimeTrackerWeb.Models.Time;
 
 namespace TimeTrackerWeb.Models
 {
     public class ProjectModelWithQuantitiesOfTime : ProjectModel
     {
-        public ProjectModelWithQuantitiesOfTime()
-        {
-
-        }
+        public ProjectModelWithQuantitiesOfTime() { }
 
         public ProjectModelWithQuantitiesOfTime(ProjectModel projectModel)
         {
