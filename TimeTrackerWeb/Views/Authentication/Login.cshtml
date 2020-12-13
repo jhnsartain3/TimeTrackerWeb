@@ -18,15 +18,15 @@
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div>
-                <input asp-for="Username" class="form-control email_input" value="@(string.IsNullOrEmpty(username) ? "" : username)" placeholder="Email" />
+                <input asp-for="Username" class="form-control email_input" value="@(string.IsNullOrEmpty(username) ? "" : username)" placeholder="Email"/>
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div>
-                <input asp-for="Password" type="password" class="form-control password_input" placeholder="Password" />
+                <input asp-for="Password" type="password" class="form-control password_input" placeholder="Password"/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div>
-                <input type="submit" value="Login" class="form-control login_button" />
+                <input type="submit" value="Login" class="form-control login_button"/>
             </div>
         </form>
     </div>

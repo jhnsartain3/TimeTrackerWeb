@@ -1,22 +1,11 @@
 ﻿@model IEnumerable<EventModelWithQuantitiesOfTimeAndDateTimeInfoHeaders>
+<link rel="stylesheet" href="~/css/floatingactionbutton.css" />
 
 @{
     ViewData["Title"] = "Events";
 }
 
-<div class="row">
-    <div class="col-4 mx-auto">
-        <a asp-action="Create" asp-route-id="@ViewBag.itemId" class="btn btn-success" style="margin-left: 30px; white-space:nowrap">New Event</a>
-    </div>
-
-    <div class="col-4 mx-auto">
-        <div class="float-right">
-            <a asp-action="Start" asp-route-id="@ViewBag.itemId" style="float:right; margin-right: 30px;white-space:nowrap" class="btn btn-primary">Start Clock</a>
-        </div>
-    </div>
-</div>
-
-<div class="container" style="padding: 10px">
+<div class="container">
     @{
         if (!Model.Any())
         {
@@ -27,41 +16,56 @@
             <div class="row">
                 @foreach (var item in Model)
                 {
+                    var descriptionHidden = "visible";
+
+                    if (string.IsNullOrEmpty(item.Description))
+                    {
+                        descriptionHidden = "hidden";
+                    }
+
                     if (item.IsDateTimeInfoHeaderRecord)
                     {
-                        <div class="col-12 badge badge-pill badge-primary" style="margin-top:20px;">
-                            <div class="row" style=" font-size:15px; padding:15px">
-                                @item.HeaderDate.ToShortDateString()
-                                @Html.Partial("../SharedPartials/RelativeElapsedTimeDisplayPartial", item.QuantitiesOfTimeModel)
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <div class="col-4 badge badge-pill badge-secondary">
+                                    <div class="col-12" style="font-size:15px">
+                                        @item.HeaderDate.ToShortDateString()
+                                        @Html.Partial("../SharedPartials/RelativeElapsedTimeDisplayPartial", item.QuantitiesOfTimeModel)
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-4"></div>
                         </div>
                     }
                     else
                     {
-                        <div class="card text-white bg-secondary mb-0" style="max-width: 18rem;margin:10px">
+                        <div class="card text-white" style="margin:5px; background-color: #ffb800">
                             <div class="card-header">
                                 @Html.DisplayFor(modelItem => item.StartTimeDisplayOnly)
                                 -
                                 @{
                                     if (item.EndDateTime == null)
-                                    { <a asp-action="Stop" asp-route-id="@item.Id" class="btn btn-danger">Stop</a> }
+                                    {
+                                        <a asp-action="Stop" asp-route-id="@item.Id">🛑</a>
+                                    }
                                     else
-                                    { @Html.DisplayFor(modelItem => item.EndTimeDisplayOnly) }
+                                    {
+                                        @Html.DisplayFor(modelItem => item.EndTimeDisplayOnly)
+                                    }
                                 }
                             </div>
+                            <div>
+                                <div class="card-body" style="padding-bottom: 0px;padding-top: 5px;min-height: 40px">
+                                    <text class="card-title" style="visibility: @descriptionHidden">
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </text>
 
-                            <div class="card-body" style="padding-bottom:0px">
-
-                                <h5 class="card-title">
-                                    @Html.DisplayFor(modelItem => item.Description)
-                                </h5>
-
-                                <text class="card-text">
-                                    @Html.Partial("../SharedPartials/RelativeElapsedTimeDisplayPartial", item.QuantitiesOfTimeModel)
-                                </text>
-                            </div>
-                            <div class="align-self-center">
-                                <a asp-action="Details" asp-route-id="@item.Id" class="btn rounded" style="width:100%">✏️</a>
+                                    <text class="card-text">
+                                        @Html.Partial("../SharedPartials/RelativeElapsedTimeDisplayPartial", item.QuantitiesOfTimeModel)
+                                    </text>
+                                </div>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="float-right" style="position: absolute; bottom: 8px; right: 8px; font-size: 18px;">✏️</a>
                             </div>
                         </div>
                     }
@@ -71,7 +75,14 @@
     }
 
     <br />
+
     <div style="text-align:center">
         <a asp-action="AllRecords" asp-route-id="@ViewBag.itemId" class="btn btn-primary">Show Older</a>
+    </div>
+
+    <div class="fab-wrapper">
+        <a asp-action="Create" asp-route-id="@ViewBag.itemId" class="btn btn-success mb-4">New Event</a>
+        <br />
+        <a asp-action="Start" asp-route-id="@ViewBag.itemId" class="btn btn-primary">Start Clock</a>
     </div>
 </div>

@@ -1,32 +1,32 @@
 ﻿@model TimeTrackerWeb.Models.Time.QuantitiesOfTimeModel
 
-<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeMillenniums)">
+<div class="col-12" hidden="@(!Model.ShouldShowRelativeMillenniums)">
     Millenniums: @Model.RelativeMillenniums
 </div>
-<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeCenturies)">
+<div class="col-12" hidden="@(!Model.ShouldShowRelativeCenturies)">
     Centuries @Model.RelativeCenturies
 </div>
-<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeDecades)">
+<div class="col-12" hidden="@(!Model.ShouldShowRelativeDecades)">
     Decades @Model.RelativeDecades
 </div>
-<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeYears)">
+<div class="col-12" hidden="@(!Model.ShouldShowRelativeYears)">
     Years: @Model.RelativeYears
 </div>
-<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeMonths)">
+<div class="col-12" hidden="@(!Model.ShouldShowRelativeMonths)">
     Months: @Model.RelativeMonths
 </div>
-<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeWeeks)">
+<div class="col-12" hidden="@(!Model.ShouldShowRelativeWeeks)">
     Weeks: @Model.RelativeWeeks
 </div>
-<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeDays)">
+<div class="col-12" hidden="@(!Model.ShouldShowRelativeDays)">
     Days: @Model.RelativeDays
 </div>
-<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeHours)">
+<div class="col-12" hidden="@(!Model.ShouldShowRelativeHours)">
     Hours: @Model.RelativeHours
 </div>
-<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeMinutes)">
+<div class="col-12" hidden="@(!Model.ShouldShowRelativeMinutes)">
     Minutes: @Model.RelativeMinutes
 </div>
-<div class="col" style="white-space: nowrap" hidden="@(!@Model.ShouldShowRelativeSeconds)">
+<div class="col-12" hidden="@(!Model.ShouldShowRelativeSeconds)">
     Seconds @Model.RelativeSeconds
 </div>

@@ -9,7 +9,7 @@
 }
 
 @{
-    if (accountCreatedSuccessfully != null && (bool)accountCreatedSuccessfully)
+    if (accountCreatedSuccessfully != null && (bool) accountCreatedSuccessfully)
     {
         <div class="alert alert-success" role="alert">
             Account was created successfully <a asp-action="Login">Login</a>
@@ -27,15 +27,15 @@
         <form asp-action="SignUp">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div>
-                <input asp-for="Username" class="form-control email_input" placeholder="Email" />
+                <input asp-for="Username" class="form-control email_input" placeholder="Email"/>
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div>
-                <input asp-for="Password" type="password" class="form-control password_input" placeholder="Password" />
+                <input asp-for="Password" type="password" class="form-control password_input" placeholder="Password"/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div>
-                <input type="submit" value="Sign Up" class="form-control login_button" />
+                <input type="submit" value="Sign Up" class="form-control login_button"/>
             </div>
         </form>
     </div>

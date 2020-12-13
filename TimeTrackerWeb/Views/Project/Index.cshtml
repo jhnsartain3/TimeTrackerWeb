@@ -2,6 +2,7 @@
 
 <link rel="stylesheet" href="~/css/colors.css">
 <link rel="stylesheet" href="~/css/pinterestgrid.css">
+<link rel="stylesheet" href="~/css/floatingactionbutton.css"/>
 
 @{
     ViewData["Title"] = "Projects";
@@ -31,15 +32,6 @@
 </script>
 
 <div class="container">
-    <div class="row ">
-        <div class="align-self-center">
-            <text style="font-size:25px;margin:20px">@(Model.Any() ? ViewData["Title"] : "Get Started")</text>
-            <a asp-action="Create" class="btn btn-success">+</a>
-        </div>
-    </div>
-
-    <br />
-
     @if (Model.Any())
     {
         <div class="card-columns">
@@ -57,7 +49,7 @@
                                 <div class="col" style="white-space: nowrap">
                                     This week:
                                     @{
-                                        var nameOfElement = "thisWeeksHours" + @item.Id;
+                                        var nameOfElement = "thisWeeksHours" + item.Id;
                                         <label id="@nameOfElement">@nameOfElement</label>
                                     }
                                     <script>GetTotalProjectHoursSinceLastSunday('@item.Id', '@nameOfElement')</script> hours
@@ -75,4 +67,8 @@
             }
         </div>
     }
+
+    <div class="fab-wrapper">
+        <a asp-action="Create" class="btn btn-success">New Project</a>
+    </div>
 </div>
