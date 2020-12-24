@@ -64,11 +64,24 @@ namespace TimeTrackerWeb.Controllers
             }
             catch (Exception exception)
             {
-                _loggerWrapper.LogError("Unable to login: " + model.Username + " " + model.UserId, GetType().Name, nameof(Login) + "()", null);
-                _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(Login) + "()", null);
-                _loggerWrapper.LogError(exception.InnerException.Message, GetType().Name, nameof(Login) + "()", null);
+                if (exception.InnerException.Message.Contains("Password is not valid"))
+                {
+                    ModelState.AddModelError(nameof(UserModel.Password), "Password is invalid");
+                    return View(model);
+                }
+                else if (exception.InnerException.Message.Contains("user does not exist"))
+                {
+                    ModelState.AddModelError(nameof(UserModel.Username), "User does not exist");
+                    return View(model);
+                }
+                else
+                {
+                    _loggerWrapper.LogError("Unable to login: " + model.Username + " " + model.UserId, GetType().Name, nameof(Login) + "()", null);
+                    _loggerWrapper.LogError(exception.Message, GetType().Name, nameof(Login) + "()", null);
+                    _loggerWrapper.LogError(exception.InnerException.Message, GetType().Name, nameof(Login) + "()", null);
 
-                throw new Exception("Unable to login", exception);
+                    throw new Exception("Unable to login", exception);
+                }
             }
 
             try
