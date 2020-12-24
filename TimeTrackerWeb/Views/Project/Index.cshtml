@@ -37,10 +37,10 @@
         <div class="card-columns">
             @foreach (var item in Model)
             {
-                <div class="card" style="background-color: hsla(0, 100%, 75%, 0.3); padding:20px">
+                <div class="card primary-color-dark" style="padding:20px">
                     <div class="row">
                         <div class="col-9" style="padding-left:20px">
-                            <a asp-action="Index" asp-controller="Event" asp-route-id="@item.Id" style="text-decoration: none;color:black;">
+                            <a asp-action="Index" asp-controller="Event" asp-route-id="@item.Id" class="primary-text-color" style="text-decoration: none;">
 
                                 <text style="white-space: nowrap; font-size:20px">@item.Name</text>
 

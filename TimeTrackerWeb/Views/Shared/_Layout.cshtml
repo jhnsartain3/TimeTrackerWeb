@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css"/>
     <link rel="stylesheet" href="~/css/gridstyles.css"/>
+    <link rel="stylesheet" href="~/css/timetrackercolors.css" />
 </head>
-<body>
+<body class="primary-color primary-text-color">
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3 primary-color-dark">
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                 <img src="~/img/timetracker_logo.svg" width="100%" height="auto" alt="Time Tracker"/>
@@ -24,10 +25,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link primary-text-color" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="https://sartainstudios.com/EntityInformation?title=Time%20Tracker" target="_blank">About</a>
+                            <a class="nav-link primary-text-color" href="https://sartainstudios.com/EntityInformation?title=Time%20Tracker" target="_blank">About</a>
                         </li>
                     </ul>
                 </div>
@@ -39,10 +40,10 @@
                         {
                             var result = Encoding.UTF8.GetString(sessionName);
                             <div class="navbar-nav flex-grow-1">
-                                <p class="navbar-nav flex-grow-1">| @result</p>
-                                <p class="navbar-nav flex-grow-1" style="color: white">||</p>
+                                <p class="navbar-nav flex-grow-1 primary-text-color">@result</p>
+                                <p class="navbar-nav flex-grow-1" style="color: #0069c0">||</p>
                                 <div>
-                                    <a class="navbar-nav flex-grow-1" asp-area="" asp-controller="Authentication" asp-action="Logout">Logout</a>
+                                    <a class="navbar-nav flex-grow-1 primary-text-color" asp-area="" asp-controller="Authentication" asp-action="Logout">Logout</a>
                                 </div>
                             </div>
                         }
@@ -58,9 +59,9 @@
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container" style="text-align:right">
-        &copy; 2020 - <a href="http://www.sartainstudios.com" target="_blank">Sartain Studios</a>
+<footer class="footer text-muted primary-color-dark">
+    <div class="container primary-text-color" style="text-align:right">
+        &copy; 2020 - <a href="http://www.sartainstudios.com" target="_blank" class="primary-text-color">Sartain Studios</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

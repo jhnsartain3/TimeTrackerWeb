@@ -17,31 +17,31 @@
     }
 }
 
-<h1 class="welcome_header">Welcome!</h1>
-<p class="welcome_paragraph">For all your time tracking needs</p>
+<h1 class="welcome_header text-center">Welcome!</h1>
+<p class="welcome_paragraph text-center">For all your time tracking needs</p>
 
-<img class="time_tracker_background_image" src="https://i.postimg.cc/rmzmX6hg/time-tracker-background.png">
+<img class="time_tracker_background_image mb-4 mt-4" src="https://i.postimg.cc/rmzmX6hg/time-tracker-background.png">
 
 <div class="row justify-content-center">
     <div class="col-md-4 justify-content-center">
         <form asp-action="SignUp">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div>
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
                 <input asp-for="Username" class="form-control email_input" placeholder="Email"/>
-                <span asp-validation-for="Username" class="text-danger"></span>
+                <span asp-validation-for="Username"></span>
             </div>
-            <div>
+            <div class="form-group">
                 <input asp-for="Password" type="password" class="form-control password_input" placeholder="Password"/>
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <span asp-validation-for="Password"></span>
             </div>
             <div>
-                <input type="submit" value="Sign Up" class="form-control login_button"/>
+                <input type="submit" value="Sign Up" class="form-control secondary-color primary-text-color login_button"/>
             </div>
         </form>
     </div>
 </div>
 
-<p class="sign_up_text">Already have an account? <a asp-action="Login">Login</a></p>
+<p class="sign_up_text text-center mt-2">Already have an account? <a asp-action="Login" class="primary-text-color">Login</a></p>
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

@@ -1,0 +1,35 @@
+﻿.primary-color {
+    background: #2196F3;
+}
+
+.primary-color-light {
+    background: #6ec6ff;
+}
+
+.primary-color-dark {
+    background: #0069c0;
+}
+
+.secondary-color {
+    background: #3F51B5;
+}
+
+.secondary-color-light, input:not([type=button]):not([type=submit]):not([type=password]):not([type=text]), textarea {
+    background: #009688 !important;
+}
+
+.secondary-color-dark {
+    background: #303F9F !important;
+}
+
+.primary-text-color, input:not([type=button]):not([type=submit]):not([type=password]):not([type=text]), textarea {
+    color: #e1f5fe !important;
+}
+
+.secondary-text-color {
+    color: #1a1616 !important;
+}
+
+.divider-color {
+    background: #BDBDBD !important;
+}
